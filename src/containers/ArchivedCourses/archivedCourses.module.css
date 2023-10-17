@@ -1,0 +1,30 @@
+.wrapper {
+  padding: 2rem 0;
+}
+
+.courses {
+  margin: 1rem 0 2rem;
+  border-bottom: 2px solid var(--neutrals-200, #f0f2f7);
+  border-top: 2px solid var(--neutrals-200, #f0f2f7);
+}
+
+.courses > * {
+  padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .courses {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0rem 2.5rem;
+  }
+
+  .courses > * {
+    padding: 2rem 0;
+    width: calc(100% - (4rem / 3));
+  }
+
+  .courses > *:not(:nth-child(3n)) {
+    margin-right: 2rem;
+  }
+}

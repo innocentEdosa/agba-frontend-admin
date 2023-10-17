@@ -1,0 +1,153 @@
+.section {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--neutrals-200, #f0f2f7);
+  padding: 1rem 2rem;
+}
+
+.titleSection {
+  align-items: center;
+}
+
+.section > *:first-child {
+  width: 12rem;
+}
+
+.section > *:nth-child(2) {
+  width: 34.25rem;
+}
+
+.titleSection > *:first-child {
+  width: 100%;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.titleWrapper > *:nth-child(1) {
+  width: 12rem;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+}
+
+.btnGroup > *:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.sectionTitle {
+  color: var(--neutrals-700, #6d6e73);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.014rem;
+}
+
+.sectionText {
+  color: var(--neutrals_700);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.375rem; /* 157.143% */
+}
+
+.sectionTextDark {
+  color: var(--neutrals_800);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.courseTitle {
+  color: var(--neutrals_800);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.125rem; /* 128.571% */
+}
+
+.courseImage {
+  width: 20rem !important;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.2rem;
+}
+
+.badge {
+  padding: 0.375rem 1.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 1rem;
+  width: fit-content !important;
+  text-transform: capitalize;
+}
+
+.badge[data-variant="primary"] {
+  background-color: var(--brand_primary_light, #e8edfc);
+  color: var(--brand_primary_default, #0039e9);
+}
+
+.badge[data-variant="danger"] {
+  background: var(--interface_red_light, #fcebe8);
+  color: var(--interface_red_dark, #c44835);
+}
+
+.authorDetails {
+  display: flex;
+  align-items: center;
+}
+
+.authorDetails > *:last-child {
+  margin-left: 0.5rem;
+}
+
+.reviewsWrapper {
+  width: calc(100% - 12rem) !important;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 2rem;
+}
+
+.reviews > *:nth-child(even) {
+  margin-left: 1.75rem;
+}
+
+.reviews > *:nth-child(odd) {
+  margin-right: 1.75rem;
+}
+
+.reviews > *:nth-child(n + 3) {
+  margin-top: 3.5rem;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: var(--brand-primary-dark, #001f80);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.014rem;
+  text-decoration-line: underline;
+}
+
+.link > *:last-child {
+  padding-left: 0.5rem;
+}
+
+.link a {
+  color: inherit;
+}

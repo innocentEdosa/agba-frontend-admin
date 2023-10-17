@@ -1,0 +1,36 @@
+.wrapper {
+  padding: 2rem 0;
+}
+
+.reviews {
+  margin: 1rem 0 2rem;
+  border-bottom: 2px solid var(--neutrals-200, #f0f2f7);
+  border-top: 2px solid var(--neutrals-200, #f0f2f7);
+}
+
+.reviews > * {
+  padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0rem 2.5rem;
+  }
+
+  .reviews > * {
+    padding: 2rem;
+  }
+
+  .reviews > *:nth-child(odd) {
+    padding-left: 0rem;
+    padding-right: 2.5rem;
+    border-right: 2px solid var(--neutrals-200, #f0f2f7);
+  }
+
+  .reviews > *:nth-child(even) {
+    padding-left: 2.5rem;
+    padding-right: 0rem;
+  }
+}

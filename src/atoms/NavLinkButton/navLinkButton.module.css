@@ -1,0 +1,23 @@
+.linkBtn {
+  display: flex;
+  padding: 0.875rem 0.9375rem 0.875rem;
+  width: 100%;
+  align-items: center;
+  align-self: stretch;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--neutrals-600, #84868a);
+}
+
+.linkBtn > * + * {
+  margin-left: 0.75rem;
+}
+
+.linkBtn[data-active="true"],
+.linkBtn:hover,
+.linkBtn:focus {
+  background: var(--brand-primary-default, #0039e9);
+  color: var(--brand-primary-light, #e8edfc);
+}
