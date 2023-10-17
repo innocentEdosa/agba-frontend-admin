@@ -1,0 +1,37 @@
+.wrapper {
+  padding: 2.5rem 0rem;
+}
+
+.btnWrapper {
+  display: none;
+}
+
+.heading {
+  color: var(--neutrals-800, #2f3033);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem; /* 114.286% */
+  letter-spacing: -0.028rem;
+}
+
+.courseListWrapper {
+  padding: 1rem 0;
+}
+
+@media screen and (min-width: 768px) {
+  .btnWrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .btnWrapper > * + * {
+    margin-left: 1rem;
+  }
+
+  .topSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

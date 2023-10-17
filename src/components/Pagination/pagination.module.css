@@ -1,0 +1,56 @@
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.paginationContainer li {
+  list-style: none;
+  cursor: pointer;
+}
+
+.paginationContainer li:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.paginationLink {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.125rem;
+  text-decoration: none;
+  color: #8993a4;
+  text-align: right;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: 1px solid transparent;
+}
+
+.paginationActiveLink {
+  border-radius: 0.125rem;
+  border: 1px solid #52a8a5;
+  background: #eaf5f4;
+  color: var(--neutrals-900, #121314);
+}
+
+.paginationInfo {
+  color: #8993a4;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 1.3125rem */
+  letter-spacing: -0.035rem;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .paginationContainer {
+    padding-top: 0;
+    padding-left: 2rem;
+  }
+}

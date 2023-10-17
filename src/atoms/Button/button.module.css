@@ -8,11 +8,11 @@
 }
 
 .button[data-genre="default"] > * + * {
-  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .button[data-genre="text"] > * + * {
-  padding-right: 12px;
+  padding-left: 12px;
 }
 
 .button[data-genre="default"] {

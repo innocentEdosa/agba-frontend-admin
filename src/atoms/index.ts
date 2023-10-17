@@ -1,6 +1,9 @@
 import Button from "./Button";
-import Input from "./Input/TextField";
-import Textarea from "./Input/TextArea";
-import Select from "./Input/Select";
+import TextField from "./Inputs/TextField";
+import Textarea from "./Inputs/TextArea";
+import Select from "./Inputs/Select";
+import Modal from "./Modal";
+import Checkbox from "./checkbox";
+import Switch from "./Switch";
 
-export { Button, Input, Textarea, Select };
+export { Button, TextField, Textarea, Select, Modal, Checkbox, Switch };

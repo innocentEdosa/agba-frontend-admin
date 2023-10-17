@@ -1,0 +1,15 @@
+.tablist {
+  border: none;
+  background-color: transparent;
+  border-bottom: 0.125rem solid var(--neutrals_200);
+}
+
+.tab {
+  color: var(--neutral_600, #84868a);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.012rem;
+  padding: .5rem 2rem;
+}
