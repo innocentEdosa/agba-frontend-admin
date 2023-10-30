@@ -1,0 +1,55 @@
+.modal {
+  display: inline-flex;
+  padding: 2.5rem 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--base-white, #fff);
+  width: 25rem;
+  max-width: 90vw;
+}
+
+.modal > * + * {
+  margin-top: 1.25rem;
+}
+
+.deleteIcon {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  background: var(--interface_red_light, #fcebe8);
+  color: var(--interface_red_dark, #C44835);
+}
+
+.title {
+  color: var(--neutrals_900, #121314);
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.text {
+  color: var(--neutrals_700, #6d6e73);
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.btnGroup {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}

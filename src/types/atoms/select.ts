@@ -1,5 +1,5 @@
+import { ChangeEvent, ChangeEventHandler } from "react";
 import { Direction } from "./shared";
-
 export type Option = {
   label: string;
   value: string;
@@ -17,8 +17,9 @@ export type SelectType = {
   selectMultiple?: boolean;
   fullWidth?: boolean;
   name: string;
-  onChange: (params: Option) => void;
-  onBlur: () => void;
+  onChange: (e: ChangeEvent) => void;
+  onBlur: (e: ChangeEvent) => void;
   defaultValue?: string;
   direction?: Direction;
+  error?: string;
 };

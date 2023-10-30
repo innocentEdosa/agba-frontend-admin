@@ -1,20 +1,23 @@
 import clsx from "clsx";
-import React from "react";
+import React, { ForwardedRef, forwardRef } from "react";
 import style from "./input.module.css";
 import { Direction, InputProps } from "@/types";
 
-const TextField = ({
-  label,
-  className = "",
-  error,
-  startIcon,
-  endIcon,
-  direction = Direction.Horizontal,
-  ...attributes
-}: InputProps) => {
+const TextField = (
+  {
+    label,
+    className = "",
+    error,
+    startIcon,
+    endIcon,
+    direction = Direction.Horizontal,
+    ...attributes
+  }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
     <label className={style.wrapper} data-direction={direction}>
-      {label && <span className={style.label}>{label}</span>}{" "}
+      {label && <span className={style.label}>{label}</span>}
       <div>
         <div
           data-starticon={!!startIcon}
@@ -25,7 +28,7 @@ const TextField = ({
               {startIcon}
             </span>
           )}
-          <input data-error={!!error} type="text" {...attributes} />
+          <input ref={ref} data-error={!!error} type="text" {...attributes} />
           {endIcon && (
             <span className={clsx(style.icon, style.endIcon)}>{endIcon}</span>
           )}
@@ -36,4 +39,4 @@ const TextField = ({
   );
 };
 
-export default TextField;
+export default forwardRef(TextField);

@@ -1,16 +1,16 @@
-import * as React from "react";
-import { SVGProps } from "react";
+import { IconProps } from "@/types";
+
 const Wallet3Icon = ({
-  width = 20,
-  height = 20,
+  size = 20,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
+    width={size}
+    height={size}
+    {...props}
     fill="none">
     <path
       fill={fill}

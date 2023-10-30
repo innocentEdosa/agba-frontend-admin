@@ -1,0 +1,106 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.wrapper > * + * {
+  margin-left: 2rem;
+}
+
+.wrapper > div {
+  width: 100%;
+}
+
+.wrapper[data-direction="vertical"] {
+  flex-direction: column;
+}
+
+.wrapper[data-direction="vertical"] > * + * {
+  margin-left: 0;
+  margin-top: 0.5rem;
+}
+
+.label {
+  color: var(--neutrals-600, #84868a);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem; /* 142.857% */
+  min-width: 10rem;
+}
+
+.addImageIcon {
+  display: flex;
+  width: 4rem;
+  height: 4rem;
+  padding: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12.5rem;
+  background: var(--neutrals_200, #f0f2f7);
+}
+
+.dropboxWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dropboxWrapper > * + * {
+  margin-left: 1.25rem;
+}
+
+.dropbox {
+  display: flex;
+  padding: 1rem 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: stretch;
+  border: 1px dashed var(--neutrals_300, #e4e5eb);
+  background: var(--neutrals_100, #fafbfc);
+  width: 100%;
+}
+
+.imagePreview {
+  width: 4rem;
+  object-fit: center;
+  object-position: center;
+}
+
+.dropbox button {
+  color: var(--brand-primary-default, #0039e9);
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; /* 142.857% */
+}
+
+.dropbox button ~ span {
+  color: var(--neutrals-600, #84868a);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 142.857% */
+}
+
+.info {
+  color: var(--neutrals-500, #b3b5ba);
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem; /* 150% */
+}
+
+.error {
+  display: inline-block;
+  color: var(--interface-red-dark, #c44835);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin-top: 0.5rem;
+}

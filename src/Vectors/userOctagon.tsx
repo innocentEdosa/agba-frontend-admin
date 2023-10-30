@@ -1,17 +1,19 @@
+import { IconProps } from "@/types";
 import * as React from "react";
 import { SVGProps } from "react";
 
 const UserOctagonIcon = ({
-  width = 20,
-  height = 20,
+  size = 20,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
+    width={size}
+    height={size}
+    viewBox="0 0 20 20"
+    {...props}
     fill="none">
     <path
       fill={fill}

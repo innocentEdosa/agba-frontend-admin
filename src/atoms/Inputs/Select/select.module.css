@@ -1,115 +1,116 @@
-.selectWrapper {
-  position: relative;
-  width: 100%;
+.wrapper {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+  width: 100%;
 }
 
-.selectWrapper > * + * {
+.wrapper > div {
+  width: 100%;
+}
+
+.wrapper > * + * {
   margin-left: 2rem;
 }
 
-.selectWrapper[data-direction="vertical"] {
+.wrapper > * + * {
+  margin-left: 2rem;
+}
+
+.wrapper[data-direction="vertical"] {
   flex-direction: column;
 }
 
-.selectWrapper[data-direction="vertical"] > * + * {
+.wrapper[data-direction="vertical"] > * + * {
   margin-left: 0;
   margin-top: 0.5rem;
 }
 
-.selectLabel {
+.label {
   color: var(--neutrals-600, #84868a);
   font-size: 0.875rem;
   font-weight: 500;
-  line-height: 1.25rem;
+  line-height: 1.25rem; /* 142.857% */
   min-width: 10rem;
 }
 
-.selectWrapper :global(.select) {
+.selectWrapper {
+  position: relative;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--neutrals-500, #b3b5ba);
   width: 100%;
 }
 
-.selectWrapper :global(.select__control--is-disabled) {
-  background-color: var(--neutrals_100);
-  border-color: var(--neutrals_300);
+.input {
+  padding: 0.625rem 0.875rem;
+  outline: none;
+  border: 1px solid var(--neutrals-300, #e4e5eb);
+  background: var(--neutrals-100, #fafbfc);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  color: var(--neutrals-800, #2f3033);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem; /* 150% */
+  padding-right: 2.75rem;
+  width: 100%;
 }
 
-.selectWrapper :global(.select__control) {
+.input[data-error="true"] {
+  border-color: var(--interface_red_dark, #c44835);
+}
+
+.input::placeholder {
+  color: var(--neutrals_500, #b3b5ba);
+}
+
+.icon {
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 0.875rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.selectMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  width: 100%;
+  left: 0;
+  right: 0;
   padding: 0.625rem 0.875rem;
   border: 1px solid var(--neutrals-300, #e4e5eb);
   background: var(--neutrals-100, #fafbfc);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1rem;
-  outline: none;
-  transition: 0.2s;
-  color: var(--text_500);
-  width: 100%;
-  min-height: auto;
+  list-style: none;
+  z-index: 1;
 }
 
-.selectWrapper :global(.select__control::placeholder) {
-  color: var(--neutrals-500, #b3b5ba);
-}
-
-.selectWrapper :global(.select__control:focus),
-.selectWrapper :global(.select__control:focus-visible),
-.selectWrapper :global(.select__control:focus-within),
-.selectWrapper :global(.select__control:valid:not(:placeholder-shown)) {
-  border-color: var(--brand-primary-default, #0039e9);
-  box-shadow: 0 0 0 0.1rem var(--primary_500);
-}
-
-.selectWrapper :global(.select__control:focus::placeholder),
-.selectWrapper :global(.select__control:focus-visible::placeholder),
-.selectWrapper :global(.select__control:focus-within::placeholder),
-.selectWrapper
-  :global(.select__control:valid:not(:placeholder-shown)::placeholder) {
-  color: var(--neutrals-500, #b3b5ba);
-}
-
-.selectWrapper :global(.select__value-container) {
-  padding: 0;
-}
-
-.selectWrapper :global(.select__indicator-separator) {
-  display: none;
-}
-
-.selectWrapper :global(.select__indicator) {
-  padding: 0;
-  color: inherit;
-}
-
-.selectWrapper :global(.select__clear-indicator) {
-  display: none;
-}
-
-.selectWrapper :global(.select__menu-list) {
-  padding: 0.8rem;
-}
-
-.selectWrapper :global(.select__menu) {
-  background: var(--neutrals-100, #fafbfc);
-}
-
-.selectWrapper :global(.select__option),
-.selectWrapper :global(.select__option--is-focused) {
-  padding: 0.625rem 0.875rem;
-  margin: 0.2rem 0;
+.menuItem {
+  padding: 0.5rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--text_500);
+  justify-content: space-between;
 }
 
-.selectWrapper :global(.select__option--is-focused),
-.selectWrapper :global(.select__option--is-selected) {
-  background: var(--brand-primary-light, #e8edfc);
-  color: inherit;
+.menuItem[data-headlessui-state="active"] {
+}
+
+.menuItem[data-headlessui-state="selected"] {
+}
+
+.error {
+  display: inline-block;
+  color: var(--interface-red-dark, #c44835);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin-top: 0.5rem;
 }

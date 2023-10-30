@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./courselist.module.css";
+import styles from "./thumbnailsGroup.module.css";
 
-const CourseThumbnails = ({
+const ThumbnailsGroup = ({
   thumbnails = [],
   displayedThumbnails,
 }: {
@@ -13,7 +13,11 @@ const CourseThumbnails = ({
   return (
     <div className={styles.thumbnailsWrapper}>
       {thumbnailsToDisplay.map((thumbnail, index) => (
-        <img key={thumbnail + index} className={styles.thumbnail} src={thumbnail} />
+        <img
+          key={thumbnail + index}
+          className={styles.thumbnail}
+          src={thumbnail}
+        />
       ))}
       {!!thumbnailsToHide.length && (
         <div className={styles.thumbnailRemainingCount}>
@@ -24,4 +28,4 @@ const CourseThumbnails = ({
   );
 };
 
-export default CourseThumbnails;
+export default ThumbnailsGroup;

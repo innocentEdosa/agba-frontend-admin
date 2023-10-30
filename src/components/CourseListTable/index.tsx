@@ -1,40 +1,23 @@
 import { Row, createColumnHelper } from "@tanstack/react-table";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Table from "../Table";
-import CourseThumbnails from "./CourseThumbnails";
 import styles from "./courselist.module.css";
-import { OptionsIcon } from "@/Vectors";
+import {
+  DirectBoxReceiptIcon,
+  Edit2Icon,
+  OptionsIcon,
+  TrashIcon,
+} from "@/Vectors";
 import { useRouter } from "next/navigation";
-import { Course } from "@/types";
-
-// generate an array of five dummy data for the course type above
-const dummyData: Course[] = Array.from({ length: 5 }).map((_, index) => ({
-  id: `${index}`,
-  title: `Course ${index}`,
-  description: `Course ${index} description`,
-  author: `Author ${index}`,
-  category: `Category ${index}`,
-  subCategory: `Sub Category ${index}`,
-  rating: index,
-  status: index % 2 === 0 ? "Active" : "Inactive",
-  price: `Price ${index}`,
-  createdAt: `Created At ${index}`,
-  updatedAt: `Updated At ${index}`,
-  thumbnails: [
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-    "https://picsum.photos/50",
-  ],
-}));
+import { ButtonGenre, ButtonVariant, Course } from "@/types";
+import ThumbnailsGroup from "../ThumbnailsGroup";
+import DropdownMenu from "../DropdownMenu";
+import { Button } from "@/atoms";
+import DeleteModal from "../DeleteModal";
 
 const columnHelper = createColumnHelper<Course>();
-const CourseListTable = () => {
+const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
+  const [showDeleteCourseModal, setShowDeleteCourseModal] = useState(false);
   const router = useRouter();
 
   const columns = useMemo(() => {
@@ -44,10 +27,10 @@ const CourseListTable = () => {
         cell: (info) => (
           <div className={styles.courseTitleWrapper}>
             <p className={styles.tableRowBoldText}>{info.getValue()}</p>
-            <CourseThumbnails
+            {/* <ThumbnailsGroup
               thumbnails={info.cell.row.original.thumbnails}
               displayedThumbnails={4}
-            />
+            /> */}
           </div>
         ),
       }),
@@ -63,7 +46,7 @@ const CourseListTable = () => {
       }),
       columnHelper.accessor("price", {
         header: "Price",
-        cell: (info) => <span>{info.getValue()}</span>,
+        cell: (info) => <span>{info.getValue() || "N/A"}</span>,
       }),
       columnHelper.accessor("category", {
         header: "Category",
@@ -84,8 +67,8 @@ const CourseListTable = () => {
         cell: (info) => (
           <span
             className={styles.status}
-            data-status={info.getValue().toLowerCase()}>
-            {info.getValue()}
+            data-status={info.getValue()?.toLowerCase()}>
+            {info.getValue() || "N/A"}
           </span>
         ),
       }),
@@ -93,23 +76,59 @@ const CourseListTable = () => {
         id: "action",
         header: "",
         cell: (info) => (
-          <button className={styles.optionBtn}>
-            <OptionsIcon />
-          </button>
+          <DropdownMenu
+            toggler={
+              <button className={styles.optionBtn}>
+                <OptionsIcon />
+              </button>
+            }>
+            <Button
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Neutral}
+              className={styles.actionBtn}>
+              <Edit2Icon size={12} />
+              <span>Edit</span>
+            </Button>
+            <Button
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Secondary}
+              className={styles.actionBtn}>
+              <DirectBoxReceiptIcon size={12} />
+              <span>Archive</span>
+            </Button>
+            <Button
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Danger}
+              className={styles.actionBtn}
+              onClick={(e) => {
+                // e.stopPropagation();
+                setShowDeleteCourseModal(true);
+              }}>
+              <TrashIcon size={12} />
+              <span>Delete</span>
+            </Button>
+          </DropdownMenu>
         ),
       }),
     ];
   }, []);
 
   const handleRowClick = (row: Row<Course>) => {
-    router.push(`/courses/${row.original.title}`);
+    router.push(`/courses/${row.original.slug}`);
   };
   return (
     <div>
       <Table
-        defaultData={dummyData}
+        defaultData={courses}
         defaultColumns={columns}
-        onRowClick={handleRowClick}
+        // onRowClick={handleRowClick}
+      />
+      <DeleteModal
+        show={showDeleteCourseModal}
+        title="Delete Course"
+        message="Are you sure you want to delete this video? This action can not be reversed."
+        cancelAction={() => setShowDeleteCourseModal(false)}
+        confirmationAction={() => {}}
       />
     </div>
   );

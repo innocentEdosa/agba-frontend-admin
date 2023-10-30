@@ -27,7 +27,7 @@
 }
 
 .label {
-  color: var(--neutrals-600, #84868a);
+  color: var(--neutrals_600, #84868a);
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.25rem; /* 142.857% */
@@ -39,7 +39,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  color: var(--neutrals-500, #b3b5ba);
+  color: var(--neutrals_500, #b3b5ba);
   width: 100%;
 }
 

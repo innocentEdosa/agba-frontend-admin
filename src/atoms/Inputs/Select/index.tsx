@@ -1,122 +1,107 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import {
-  DropdownIndicatorProps,
-  GroupBase,
-  OptionProps,
-  components,
-  SelectInstance,
-} from "react-select";
-import AsyncSelect from "react-select/async";
-import style from "./select.module.css";
+import React, { Fragment, useMemo, useState } from "react";
+import { Combobox, Transition } from "@headlessui/react";
 import { CheckMark, ChevronDown } from "@/Vectors";
-import { Direction, Option, SelectType } from "@/types";
+import styles from "./select.module.css";
+import { Direction, Option } from "@/types";
+import { Control, Controller, FieldValues } from "react-hook-form";
 
+export type SelectType = {
+  options: Option[];
+  label: string;
+  direction?: Direction;
+  placeholder?: string;
+  error?: string;
+  control: Control<FieldValues>;
+  name: string;
+};
 
+const Select = ({
+  options = [],
+  label,
+  direction,
+  placeholder,
+  name,
+  control,
+}: SelectType) => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [query, setQuery] = useState("");
+  const filteredOptions = useMemo(() => {
+    return query === ""
+      ? options
+      : options.filter((option) => {
+          return option.label.toLowerCase().includes(query.toLowerCase());
+        });
+  }, [options, query]);
 
-const SelectComponent = React.forwardRef<SelectInstance, SelectType>(
-  (
-    {
-      isClearable = true,
-      isSearchable = true,
-      isDisabled,
-      isLoading,
-      label,
-      name,
-      placeholder,
-      options = [],
-      selectMultiple = false,
-      isRtl = false,
-      defaultValue,
-      onChange,
-      onBlur,
-      direction = Direction.Horizontal,
-    },
-    ref
-  ) => {
-    const DropdownIndicator = (
-      props: JSX.IntrinsicAttributes &
-        DropdownIndicatorProps<unknown, boolean, GroupBase<unknown>>
-    ) => {
-      return (
-        <components.DropdownIndicator {...props}>
-          {props.selectProps.menuIsOpen ? <ChevronDown /> : <ChevronDown />}
-        </components.DropdownIndicator>
-      );
-    };
-
-    const [value, setValue] = useState<Option>();
-
-    useEffect(() => {
-      const defaultOption = options.find(
-        (p: Option) => p?.value === defaultValue
-      );
-      if (defaultOption) {
-        setValue(defaultOption);
-      }
-    }, [defaultValue]);
-
-    const Option = (
-      props: JSX.IntrinsicAttributes &
-        OptionProps<unknown, boolean, GroupBase<unknown>>
-    ) => {
-      return (
-        <components.Option {...props}>
-          {props.label}
-          {props.isSelected && <CheckMark />}
-        </components.Option>
-      );
-    };
-
-    const loadOptions = (
-      inputValue: string,
-      callback: (options: Option[]) => void
-    ) => {
-      const filteredOptions = options.filter((option) =>
-        option.label.toLowerCase().includes(inputValue.toLowerCase())
-      );
-
-      callback(filteredOptions);
-    };
-
-    const onChangeHandler = (selectedValue: any) => {
-      setValue(selectedValue);
-      onChange?.({
-        //@ts-ignore
-        target: {
-          name,
-          value: selectedValue?.value,
-        },
-      });
-    };
-
-    return (
-      <label className={style.selectWrapper} data-direction={direction}>
-        {label && <span className={style.selectLabel}>{label}</span>}
-        <AsyncSelect
-          tabSelectsValue
-          ref={ref}
-          value={value}
-          className="select"
-          classNamePrefix={"select"}
-          isDisabled={isDisabled}
-          isLoading={isLoading}
-          isMulti={selectMultiple}
-          placeholder={placeholder}
-          components={{ DropdownIndicator, Option }}
-          isClearable={isClearable}
-          isRtl={isRtl}
-          defaultOptions
-          isSearchable={isSearchable}
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field: { onChange }, fieldState: { error } }) => (
+        <Combobox
+          className={styles.wrapper}
+          data-direction={direction}
           name={name}
-          loadOptions={loadOptions}
-          onBlur-={onBlur}
-          onChange={onChangeHandler}
-        />
-      </label>
-    );
-  }
-);
+          as={"div"}
+          // defaultValue={selectedOption}
+          onChange={(value) => {
+            setSelectedOption(value);
+            onChange(value);
+          }}
+          value={selectedOption}>
+          {label && (
+            <Combobox.Label className={styles.label}>{label}</Combobox.Label>
+          )}
+          <div className={styles.selectWrapper}>
+            <div className={styles.inputWrapper}>
+              <Combobox.Input
+                data-error={!!error}
+                placeholder={placeholder}
+                className={styles.input}
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(selectedValue) => {
+                  return options.find(
+                    (option) => option.value === selectedValue
+                  )?.label!;
+                }}
+              />
+              <Combobox.Button className={styles.icon}>
+                <ChevronDown />
+              </Combobox.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+              afterLeave={() => setQuery("")}>
+              <Combobox.Options className={styles.selectMenu}>
+                {!!!filteredOptions.length && (
+                  <span className={styles.info}>No options available</span>
+                )}
+                {!!filteredOptions.length &&
+                  filteredOptions.map((option) => (
+                    <Combobox.Option
+                      placeholder={placeholder}
+                      key={option.value}
+                      value={option.value}
+                      className={styles.menuItem}>
+                      {({ active, selected }) => (
+                        <>
+                          <span>{option.label}</span>
+                          {selected && <CheckMark size={20} />}
+                        </>
+                      )}
+                    </Combobox.Option>
+                  ))}
+              </Combobox.Options>
+            </Transition>
+            {error && <span className={styles.error}>{error.message}</span>}
+          </div>
+        </Combobox>
+      )}
+    />
+  );
+};
 
-export default SelectComponent;
+export default Select;

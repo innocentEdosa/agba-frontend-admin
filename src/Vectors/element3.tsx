@@ -1,17 +1,19 @@
+import { IconProps } from "@/types";
 import * as React from "react";
 import { SVGProps } from "react";
 
 const Element3Icon = ({
-  width = 20,
-  height = 20,
+  size = 20,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
+    width={size}
+    height={size}
+    {...props}
+    viewBox="0 0 20 20"
     fill="none">
     <path
       fill={fill}

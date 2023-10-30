@@ -1,13 +1,18 @@
+import { IconProps } from "@/types";
 import * as React from "react";
 import { SVGProps } from "react";
 
 const HamburgerIcon = ({
+  size = 24,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    width={24}
-    height={24}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    {...props}
     fill="transparent"
     xmlns="http://www.w3.org/2000/svg"
     {...props}>

@@ -1,3 +1,3 @@
-import ResponsiveContextWrapper from "./responsivee";
+import ResponsiveContextWrapper from "./responsive";
 
 export { ResponsiveContextWrapper };

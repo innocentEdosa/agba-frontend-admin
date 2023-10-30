@@ -11,13 +11,13 @@ const ArchivedCourses = () => {
       <h1 className={clsx("container", styles.title)}>Archived Courses</h1>
       <div className={styles.courses}>
         {Array.from({ length: 12 }).map((_, i) => (
-          <CourseCard />
+          <CourseCard key={i} />
         ))}
       </div>
       <div className="container">
         <Pagination
           currentPage={1}
-          totalPages={10}
+          totalItems={10}
           offset={3}
           onChange={(page) => console.log(page)}
         />

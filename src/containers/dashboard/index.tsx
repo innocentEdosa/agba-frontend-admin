@@ -6,8 +6,18 @@ import Link from "next/link";
 import React from "react";
 import styles from "./dashboard.module.css";
 import clsx from "clsx";
+import { useGetCourses } from "@/api/hooks/queries/course";
 
 const DashboardContainer = () => {
+  const { data: coursesData, isLoading } = useGetCourses({
+    limit: 5,
+    page: 1,
+  });
+  const courses = React.useMemo(() => {
+    if (!coursesData) return [];
+    return coursesData.data;
+  }, [coursesData]);
+
   return (
     <div className={styles.wrapper}>
       <DashboardOverview />
@@ -18,7 +28,7 @@ const DashboardContainer = () => {
             View All
           </Link>
         </div>
-        <CourseListTable />
+        <CourseListTable courses={courses} />
       </div>
     </div>
   );

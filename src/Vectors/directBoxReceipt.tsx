@@ -1,17 +1,19 @@
+import { IconProps } from "@/types";
 import * as React from "react";
 import { SVGProps } from "react";
 
 const DirectBoxReceiptIcon = ({
-  width = 24,
-  height = 24,
+  size = 24,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    {...props}
     fill="none">
     <path
       stroke={fill}

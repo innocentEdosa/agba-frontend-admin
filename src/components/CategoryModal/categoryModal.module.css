@@ -40,11 +40,6 @@
   background: var(--brand-primary-light, #e8edfc);
 }
 
-.addCategoryBtn span svg {
-  transform: scale(0.8);
-  margin-left: -0.3rem;
-}
-
 .category:hover,
 .category[data-selected="true"] {
   background: var(--neutrals-200, #f0f2f7);
@@ -56,10 +51,6 @@
 
 .categoryBtnGroup > button {
   padding-right: 2rem;
-}
-
-.categoryBtnGroup > button:nth-child(2) svg {
-  transform: scale(0.8);
 }
 
 .category button {
@@ -89,16 +80,8 @@
   font-size: 0.75rem !important;
 }
 
-.subCategoryBtnGroup > button > svg {
-  transform: scale(0.8);
-}
-
-.subCategoryBtnGroup > button:nth-child(2) svg {
-  transform: scale(0.6);
-}
-
 .subCategoryBtnGroup > button > * + * {
-  padding-left: 0.1rem !important;
+  padding-left: 0.3rem !important;
 }
 
 .titleWrapper {

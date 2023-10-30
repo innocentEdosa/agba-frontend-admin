@@ -13,9 +13,14 @@ import StoryIcon from "./story";
 import AddIcon from "./add";
 import ChevronRight from "./ChevronRight";
 import TrashIcon from "./trash";
-import Edit2Icom from "./edit2";
+import Edit2Icon from "./edit2";
 import HamburgerIcon from "./hamburger";
 import CloseIcon from "./close";
+import AddImageIcon from "./addImage";
+import LoaderIcon from "./loader";
+import AddVideoIcon from "./addVideo";
+import PlayIcon from "./play";
+import PauseIcon from "./pause";
 
 export {
   CheckMark,
@@ -33,7 +38,12 @@ export {
   AddIcon,
   ChevronRight,
   TrashIcon,
-  Edit2Icom,
+  Edit2Icon,
   HamburgerIcon,
   CloseIcon,
+  AddImageIcon,
+  LoaderIcon,
+  AddVideoIcon,
+  PlayIcon,
+  PauseIcon,
 };

@@ -30,7 +30,7 @@ const Table = <T extends Record<string, any>>({
 
   const columns = useMemo(() => {
     return [...(defaultColumns || [])];
-  }, [defaultColumns, enableRowSelection]);
+  }, [defaultColumns]);
 
   const table = useReactTable({
     data,

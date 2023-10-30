@@ -23,7 +23,7 @@ const CourseReview = () => {
       <div className="container">
         <Pagination
           currentPage={1}
-          totalPages={10}
+          totalItems={10}
           offset={3}
           onChange={(page) => console.log(page)}
         />
