@@ -1,18 +1,20 @@
-import React from "react";
+import React, { ForwardedRef, forwardRef } from "react";
 import styles from "./checkbox.module.css";
 import { CheckMark } from "@/Vectors";
 import { CheckboxProps, CheckboxSize } from "@/types";
 
-const Checkbox = ({ label, size = CheckboxSize.Small }: CheckboxProps) => {
+const Checkbox = (
+  { label, size = CheckboxSize.Small, ...rest }: CheckboxProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
     <label className={styles.wrapper}>
-      <input type="checkbox" className={styles.input} />
+      <input type="checkbox" ref={ref} className={styles.input} {...rest} />
       <div data-size={size} className={styles.checkbox}>
         <span className={styles.checkMark}>
           <CheckMark
-            width={12}
-            height={size === CheckboxSize.Small ? 10 : 12}
-            fill="currentColor"
+            size={size === CheckboxSize.Small ? 10 : 12}
+            color="currentColor"
           />
         </span>
       </div>
@@ -21,4 +23,4 @@ const Checkbox = ({ label, size = CheckboxSize.Small }: CheckboxProps) => {
   );
 };
 
-export default Checkbox;
+export default forwardRef(Checkbox);

@@ -5,11 +5,25 @@
 }
 
 .tab {
+  border: none;
+  outline: none;
+  background-color: transparent;
   color: var(--neutral_600, #84868a);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   letter-spacing: -0.012rem;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
+  border-bottom: 0.125rem solid var(--neutrals_200);
+  margin-bottom: -0.125rem;
+}
+
+.tab[data-headlessui-state="selected"] {
+  color: var(--interface_green_dark, #438c65);
+  border-color: var(--interface_green_dark, #438c65);
+}
+
+.tabPanel {
+  outline: none;
 }

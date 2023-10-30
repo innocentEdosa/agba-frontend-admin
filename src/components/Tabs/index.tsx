@@ -1,34 +1,32 @@
 import React from "react";
-import {
-  Tabs as RUITabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-} from "@reach/tabs";
-import "@reach/tabs/styles.css";
+import { Tab } from "@headlessui/react";
 import styles from "./tabs.module.css";
 
 export type TabsProps = {
   tabs: { title: string; component: React.ReactNode }[];
+  onChange?: (index: number) => void;
 };
 
-const Tabs = ({ tabs }: TabsProps) => {
+const Tabs = ({ tabs, onChange }: TabsProps) => {
+  const conditionalOnChange = onChange ? { onChange } : {};
+
   return (
-    <RUITabs>
-      <TabList className={styles.tablist}>
+    <Tab.Group {...conditionalOnChange}>
+      <Tab.List className={styles.tablist}>
         {tabs.map((tab) => (
           <Tab key={tab.title} className={styles.tab}>
             {tab.title}
           </Tab>
         ))}
-      </TabList>
-      <TabPanels>
+      </Tab.List>
+      <Tab.Panels>
         {tabs.map((tab) => (
-          <TabPanel key={tab.title}>{tab.component}</TabPanel>
+          <Tab.Panel key={tab.title} className={styles.tabPanel}>
+            {tab.component}
+          </Tab.Panel>
         ))}
-      </TabPanels>
-    </RUITabs>
+      </Tab.Panels>
+    </Tab.Group>
   );
 };
 

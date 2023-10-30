@@ -17,8 +17,8 @@ const NavLinkButton = ({
   className = "",
   ...attributes
 }: LinkButtonProps) => {
-  const pathName = usePathname() === "/" ? false : usePathname();
-  const isActive = pathName?.toString().includes(href)
+  const pathName = usePathname();
+  const isActive = pathName !== "/" && pathName?.toString().includes(href);
 
   return (
     <Link

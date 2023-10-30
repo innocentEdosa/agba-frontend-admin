@@ -1,7 +1,7 @@
 import {
   ChevronRight,
   DirectBoxReceiptIcon,
-  Edit2Icom,
+  Edit2Icon,
   TrashIcon,
 } from "@/Vectors";
 import clsx from "clsx";
@@ -12,6 +12,8 @@ import { Review } from "@/components";
 import Link from "next/link";
 import { Button } from "@/atoms";
 import { ButtonGenre, ButtonVariant } from "@/types";
+import { useParams } from "next/navigation";
+import { useGetCourseBySlug } from "@/api/hooks/queries/course";
 
 const reviews = Array.from({ length: 4 }).map((_, index) => ({
   user: { email: "user@example.com", fullName: "Jack Robbinson" },
@@ -20,24 +22,27 @@ const reviews = Array.from({ length: 4 }).map((_, index) => ({
 }));
 
 const CourseDetails = () => {
+  const params = useParams();
+  const { data: course } = useGetCourseBySlug(params?.slug as string);
+
   return (
     <div>
       <div className={clsx(styles.section, styles.titleSection)}>
         <div className={styles.titleWrapper}>
           <span className={styles.sectionTitle}>Title</span>
-          <h2 className={styles.courseTitle}>course title</h2>
+          <h2 className={styles.courseTitle}>{course?.title}</h2>
         </div>
         <div className={clsx(styles.btnGroup, styles.categoryBtnGroup)}>
           <Button genre={ButtonGenre.Text} variant={ButtonVariant.Danger}>
-            <TrashIcon height={16} />
+            <TrashIcon size={16} />
             <span>Delete</span>
           </Button>
           <Button genre={ButtonGenre.Text} variant={ButtonVariant.Secondary}>
-            <DirectBoxReceiptIcon />
+            <DirectBoxReceiptIcon size={16} />
             <span>Archive</span>
           </Button>
           <Button genre={ButtonGenre.Text} variant={ButtonVariant.Neutral}>
-            <Edit2Icom height={16} />
+            <Edit2Icon size={16} />
             <span>Edit</span>
           </Button>
         </div>
@@ -46,36 +51,25 @@ const CourseDetails = () => {
         <span className={styles.sectionTitle}>Course Image</span>
         <img
           className={styles.courseImage}
-          src="https://picsum.photos/200/100"
+          src={course?.avatar?.aws_url || ""}
           alt=""
         />
       </div>
       <div className={styles.section}>
         <span className={styles.sectionTitle}>Description</span>
         <p className={styles.sectionText}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis,
-          amet adipisci ducimus dolorum nam quasi iusto reprehenderit delectus.
-          Mollitia, totam facere amet cum nulla doloremque soluta ipsa beatae
-          earum esse quam praesentium deserunt dolorum perferendis libero eum ab
-          quaerat tempore sint voluptatibus voluptatem. Laboriosam repudiandae
-          sequi, sapiente asperiores quos delectus ullam quod ipsum animi
-          corporis aspernatur? Voluptatum porro consequatur magni sapiente id
-          eligendi! Facere quaerat aliquid fuga deleniti iusto fugiat a, iure ab
-          laboriosam eum modi nobis, provident rerum ipsum, cumque esse nemo
-          reiciendis illum consequuntur! Dolorem, consequatur ad unde placeat
-          iusto illo, ex nesciunt minus ea est quam ipsam.
+          {course?.description || "No description"}
         </p>
       </div>
       <div className={styles.section}>
         <span className={styles.sectionTitle}>Short Description</span>
         <p className={styles.sectionText}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis,
-          amet adipisci ducimus dolorum nam quasi iusto reprehenderit delectus.
+          {course?.short_description || "No short description"}
         </p>
       </div>
       <div className={styles.section}>
         <span className={styles.sectionTitle}>Rating</span>
-        <p className={styles.sectionText}>4.6</p>
+        <p className={styles.sectionText}>{course?.rating || "-"}</p>
       </div>
       <div className={styles.section}>
         <span className={styles.sectionTitle}>Price</span>

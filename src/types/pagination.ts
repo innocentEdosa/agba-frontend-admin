@@ -1,6 +1,6 @@
 export type PaginationProps = {
-  currentPage: number;
-  totalPages: number;
+  currentPage?: number;
+  totalItems: number;
   offset: number;
   onChange: (page: number) => void;
   maxVisiblePages?: number;

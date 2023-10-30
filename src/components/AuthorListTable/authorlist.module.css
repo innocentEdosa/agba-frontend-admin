@@ -1,0 +1,63 @@
+.courseTitleWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.tableRowBoldText {
+  font-weight: 600;
+  color: var(--neutrals-800, #2f3033);
+}
+
+.optionBtn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.actionBtn {
+  padding: 0.75rem 1rem;
+  width: 9.5rem;
+  justify-content: flex-start;
+}
+
+.actionBtn:hover {
+  background: var(--neutrals_200, #f0f2f7) !important;
+}
+
+.optionBtn:hover {
+  background-color: var(--neutrals-200, #f0f2f7);
+}
+
+.rating {
+  color: var(--brand-secondary-default, #fb9b2a);
+}
+
+.link {
+  color: var(--brand_primary_dark, #001f80);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+.featured {
+  padding: 0.25rem 0.75rem;
+  background-color: var(--brand_primary_light, #e8edfc);
+  color: var(--brand_primary_default, #0039e9);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.featured[data-featured="false"] {
+  background-color: var(--interface_red_light, #fcebe8);
+  color: var(--interface_red_default, #fa3314);
+}
+

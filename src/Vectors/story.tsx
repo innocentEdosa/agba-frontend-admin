@@ -1,16 +1,18 @@
+import { IconProps } from "@/types";
 import * as React from "react";
 import { SVGProps } from "react";
 const StoryIcon = ({
-  width = 24,
-  height = 24,
+  size = 24,
+  color,
   fill = "currentColor",
   ...props
-}: SVGProps<SVGSVGElement>) => (
+}: IconProps) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    {...props}
     fill="none">
     <path
       stroke={fill}

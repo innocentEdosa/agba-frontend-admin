@@ -1,14 +1,7 @@
 import DashboardLayout from "@/layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <DashboardLayout>{children}</DashboardLayout>
-      </body>
-    </html>
-  );
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 export default Layout;

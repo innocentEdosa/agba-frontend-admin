@@ -7,4 +7,4 @@ export enum CheckboxSize {
 export type CheckboxProps = {
   label: string;
   size?: CheckboxSize;
-};
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;

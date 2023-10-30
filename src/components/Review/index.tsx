@@ -9,12 +9,12 @@ export type ReviewProps = {
 
 const Review = ({ user, content, rating }: ReviewProps) => {
   return (
-    <div className={styles.wrapper}>
+    <article className={styles.wrapper}>
       <h3 className={styles.user__name}>{user.fullName}</h3>
       <p className={styles.user__email}>{user.email}</p>
       <p className={styles.content}>{content}</p>
       <p className={styles.rating}>{rating}</p>
-    </div>
+    </article>
   );
 };
 

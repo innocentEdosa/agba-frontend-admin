@@ -1,14 +1,17 @@
-import React from "react";
+import React, { ForwardedRef, forwardRef } from "react";
 import styles from "./switch.module.css";
 import clsx from "clsx";
 import { Direction, SwitchProps } from "@/types";
 
-const Switch = ({
-  label,
-  className,
-  direction = Direction.Horizontal,
-  ...attributes
-}: SwitchProps) => {
+const Switch = (
+  {
+    label,
+    className,
+    direction = Direction.Horizontal,
+    ...attributes
+  }: SwitchProps,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
     <label className={styles.wrapper} data-direction={direction}>
       {label && <span className={styles.label}>{label}</span>}
@@ -17,6 +20,7 @@ const Switch = ({
           type="checkbox"
           role="switch"
           className={styles.input}
+          ref={ref}
           {...attributes}
         />
         <div className={styles.checkbox}>
@@ -36,4 +40,4 @@ const Switch = ({
   );
 };
 
-export default Switch;
+export default forwardRef(Switch);

@@ -1,4 +1,4 @@
-import { ResponsiveContext } from "@/contexts/responsivee";
+import { ResponsiveContext } from "@/contexts/responsive";
 import { useContext } from "react";
 
 const useResponsive = () => {
