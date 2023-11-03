@@ -6,13 +6,17 @@ import Review from "./Review";
 import Table from "./Table";
 import Tabs from "./Tabs";
 import CourseCard from "./CourseCard.tsx";
-import CreateCategoryModal from "./Forms/CreateCategoryModal";
-import CreateCourseModal from "./Forms/CreateCourseModal";
-import CreateAuthorModal from "./Forms/CreateAuthorModal";
-import CreateVideoModal from "./Forms/CreateVideoModal";
 import DropdownMenu from "./DropdownMenu";
 import VideoPlayer from "./Video";
 import VideoListItem from "./VideoListItem.";
+import CreateCourseModal from "./Forms/CourseActionModal/CreateCourseModal";
+import EditCourseModal from "./Forms/CourseActionModal/EditCourseModal";
+import CreateCategoryModal from "./Forms/CategoryActionModal/CreateCategory";
+import EditCategoryModal from "./Forms/CategoryActionModal/EditCategory";
+import CreateAuthorModal from "./Forms/AuthorActionModal/CreateAuthorModal";
+import EditAuthorModal from "./Forms/AuthorActionModal/EditAuthorModal";
+import CreateVideoModal from "./Forms/VideoActionModal/CreateVideoModal";
+import EditVideoModal from "./Forms/VideoActionModal/EditVideoModal";
 
 export {
   CategoryModal,
@@ -24,10 +28,14 @@ export {
   Tabs,
   CourseCard,
   CreateCategoryModal,
+  EditCategoryModal,
   CreateCourseModal,
+  EditCourseModal,
   CreateAuthorModal,
+  EditAuthorModal,
   CreateVideoModal,
   DropdownMenu,
   VideoPlayer,
   VideoListItem,
+  EditVideoModal,
 };

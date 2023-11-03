@@ -1,18 +1,21 @@
+import { PriceType } from "@/constants/course";
 import { Avatar } from "./shared";
+import { Author } from "./author";
 
 export type Course = {
   id: string;
   title: string;
   description: string;
   short_description: string;
-  author: string;
+  authors: Author[];
   category: string;
   subCategory: string;
   avatar?: Avatar;
   slug: string;
   rating: number;
   status?: string;
-  price: string;
+  price_value?: number | null;
+  price_type?: PriceType | null;
   is_featured: boolean;
   is_coming: boolean;
   createdAt: string;
@@ -30,6 +33,13 @@ export type CreateCourseType = {
   sub_category_id?: string;
   is_featured?: boolean;
   is_coming?: boolean;
-  price?: string;
-  avatar?: File;
+  price_value?: number | null;
+  price_type?: PriceType | null;
+  avatar?: any;
 };
+
+export type UpdateCourseType = Partial<CreateCourseType>;
+
+export type UpdateCourseParamsType = {
+  id: string;
+} & UpdateCourseType;

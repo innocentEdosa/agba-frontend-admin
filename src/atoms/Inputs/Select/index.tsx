@@ -2,18 +2,8 @@ import React, { Fragment, useMemo, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckMark, ChevronDown } from "@/Vectors";
 import styles from "./select.module.css";
-import { Direction, Option } from "@/types";
+import { Direction, Option, SelectType } from "@/types";
 import { Control, Controller, FieldValues } from "react-hook-form";
-
-export type SelectType = {
-  options: Option[];
-  label: string;
-  direction?: Direction;
-  placeholder?: string;
-  error?: string;
-  control: Control<FieldValues>;
-  name: string;
-};
 
 const Select = ({
   options = [],
@@ -21,9 +11,10 @@ const Select = ({
   direction,
   placeholder,
   name,
+  defaultValue = "",
   control,
 }: SelectType) => {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
   const [query, setQuery] = useState("");
   const filteredOptions = useMemo(() => {
     return query === ""
@@ -35,9 +26,10 @@ const Select = ({
 
   return (
     <Controller
+      defaultValue={defaultValue}
       control={control}
       name={name}
-      render={({ field: { onChange }, fieldState: { error } }) => (
+      render={({ field: { onChange }, fieldState: { error } }, ) => (
         <Combobox
           className={styles.wrapper}
           data-direction={direction}

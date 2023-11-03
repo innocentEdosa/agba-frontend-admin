@@ -1,0 +1,19 @@
+.wrapper {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--interface_red_light);
+  display: flex;
+  align-items: flex-start;
+  font-size: 1rem;
+  color: var(--interface_red_dark);
+}
+
+.wrapper[data-variant="info"] {
+  background-color: var(--brand_primary_light);
+  color: var(--brand_primary_default);
+}
+
+.wrapper > * + * {
+  margin-left: 1.2rem;
+}

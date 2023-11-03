@@ -16,10 +16,11 @@ const ArchivedCourses = () => {
       </div>
       <div className="container">
         <Pagination
+          totalCount={12}
+          pageSize={1}
           currentPage={1}
-          totalItems={10}
-          offset={3}
-          onChange={(page) => console.log(page)}
+          siblingCount={1}
+          onPageChange={(page) => console.log(page)}
         />
       </div>
     </div>

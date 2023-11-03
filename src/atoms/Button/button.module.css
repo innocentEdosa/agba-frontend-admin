@@ -83,3 +83,8 @@
   color: var(--neutrals-800, #2f3033);
   background-color: transparent;
 }
+
+.button:disabled {
+  opacity: 70%;
+  cursor: not-allowed;
+}
