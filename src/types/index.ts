@@ -10,3 +10,5 @@ export * from "./author";
 export * from "./api";
 export * from "./shared";
 export * from "./vector";
+export * from "./video"
+export * from "./upload"

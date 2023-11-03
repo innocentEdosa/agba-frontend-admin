@@ -8,18 +8,35 @@
   max-height: 90vh;
   overflow-y: auto;
 }
+
+.modal > * + * {
+  margin-top: 1rem;
+}
+
 .form {
   margin-top: 1.5rem;
 }
 
-.form > * {
+.form > *,
+.videoUploadModal > * {
   margin-bottom: 1.5rem;
 }
 
-.form > button {
+.btnGroup {
+  width: 100%;
   display: flex;
-  margin: 2.5rem auto 0rem;
-  width: 80%;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.btnGroup > * + * {
+  margin-left: 1rem;
+}
+
+.btn {
+  padding: 1rem !important;
+  font-size: 14px;
 }
 
 @media screen and (min-width: 768px) {

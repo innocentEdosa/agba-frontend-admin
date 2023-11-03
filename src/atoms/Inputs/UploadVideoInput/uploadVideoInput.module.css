@@ -114,16 +114,16 @@
 }
 
 .videoWrapper {
-  width: 8rem;
+  width: 100%;
 }
 
-.previewInfo {
+/* .previewInfo {
   display: flex;
   align-items: flex-start;
-}
+} */
 
 .previewInfo > * + * {
-  margin-left: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .videoInfo {

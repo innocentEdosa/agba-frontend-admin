@@ -16,7 +16,7 @@ const ProgressBar = ({ percentage, label }: ProgressBarProps) => {
         aria-valuemax={100}
         aria-valuemin={0}
         aria-valuenow={percentage}
-        aria-aria-labelledby="">
+        aria-labelledby={labe_id}>
         <div
           className={style.progressBar}
           style={{ width: `${percentage}%` }}></div>

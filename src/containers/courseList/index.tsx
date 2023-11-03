@@ -6,24 +6,30 @@ import { Button } from "@/atoms";
 import {
   AddIcon,
   DirectBoxReceiptIcon,
-  HamburgerIcon,
   OptionsIcon,
   StoryIcon,
 } from "@/Vectors";
 import CourseListTable from "@/components/CourseListTable";
-import Pagination from "@/components/Pagination";
 import CategoryModal from "@/components/CategoryModal";
 import clsx from "clsx";
 import {
-  CreateCategoryModal,
   CreateCourseModal,
-  CreateVideoModal,
+  CreateCategoryModal,
   DropdownMenu,
+  EditCategoryModal,
+  Pagination,
 } from "@/components";
-import { ButtonVariant, CreateCategoryParam } from "@/types";
-import { useGetCategories } from "@/api/hooks/queries/categories";
+import {
+  ButtonVariant,
+  CategoryType,
+  CreateCategoryParam,
+  UpdateCategoryParam,
+} from "@/types";
 import { useGetCourses } from "@/api/hooks/queries/course";
-import { useCreateCategory } from "@/api/hooks/mutations/categories";
+import {
+  useCreateCategory,
+  useUpdateCategory,
+} from "@/api/hooks/mutations/categories";
 import { toast } from "react-toastify";
 
 const CourseList = () => {
@@ -39,21 +45,14 @@ const CourseList = () => {
     React.useState(false);
   const [showCreateCourseModal, setShowCreateCourseModal] =
     React.useState(false);
-  const { mutate: createCategory, isPending: isCreateCategoryPending } =
-    useCreateCategory();
-
-  const handleCreateCategory = useCallback(
-    (params: CreateCategoryParam, cb?: () => void) => {
-      createCategory(params, {
-        onSuccess: () => {
-          toast.success("Category created successfully");
-          cb?.();
-          setShowCreateCategoryModal(false);
-        },
-      });
-    },
-    []
+  const [editCategory, setEditCategory] = React.useState<CategoryType | null>(
+    null
   );
+
+  const handleSetEditCategoryId = useCallback((category: CategoryType) => {
+    setEditCategory(category);
+    setShowCategoriesModal(false);
+  }, []);
 
   const totalPages = coursesData?.meta?.total || 0;
 
@@ -117,11 +116,13 @@ const CourseList = () => {
         <CourseListTable courses={courses} />
         <div className="container">
           <Pagination
-            offset={paginationState.limit}
+            totalCount={totalPages}
+            pageSize={paginationState.limit}
             currentPage={paginationState.page}
-            totalItems={totalPages}
-            onChange={(page) => console.log(page)}
-            maxVisiblePages={3}
+            siblingCount={2}
+            onPageChange={(page) => {
+              setPaginationState((prev) => ({ ...prev, page }));
+            }}
           />
         </div>
       </section>
@@ -130,13 +131,16 @@ const CourseList = () => {
         show={showCategoriesModal}
         onDismiss={() => setShowCategoriesModal(false)}
         showCreateCategory={() => setShowCreateCategoryModal(true)}
+        onEditCategory={handleSetEditCategoryId}
       />
       <CreateCategoryModal
-        type="Create"
         show={showCreateCategoryModal}
         onDismiss={() => setShowCreateCategoryModal(false)}
-        action={handleCreateCategory}
-        isPending={isCreateCategoryPending}
+      />
+      <EditCategoryModal
+        show={!!editCategory}
+        onDismiss={() => setEditCategory(null)}
+        initialData={editCategory}
       />
       <CreateCourseModal
         show={showCreateCourseModal}

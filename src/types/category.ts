@@ -20,11 +20,8 @@ export type GetCategoriesResponseType = {
 
 export type CategoriesType = Record<string, CategoryType[]>;
 
-//  "id": "888ed277-fd9d-4882-8bea-a7807d033759",
-//                 "title": "jg",
-//                 "parent_id": null,
-//                 "slug": "jg",
-//                 "created_at": "2023-10-20T18:46:06.207Z",
-//                 "updated_at": "2023-10-20T18:46:06.208Z",
-//                 "main_category": null,
-//                 "main_id": null
+export type UpdateCategoryType = Partial<CreateCategoryParam>;
+
+export type UpdateCategoryParam = {
+  id: string;
+} & UpdateCategoryType;

@@ -3,19 +3,18 @@
 import AuthorListTable from "@/components/AuthorListTable";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./authorList.module.css";
-import { Pagination } from "@/components";
+import { CreateAuthorModal, Pagination } from "@/components";
 import clsx from "clsx";
 import { Button } from "@/atoms";
 import { ButtonVariant } from "@/types";
 import { AddIcon } from "@/Vectors";
-import CreateAuthorModal from "@/components/Forms/CreateAuthorModal";
 import { useGetAuthors } from "@/api/hooks/queries/authors";
 
 const AuthorList = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [paginationState, setPaginationState] = useState({
     page: 1,
-    limit: 2,
+    limit: 1,
   });
   const { data, isLoading } = useGetAuthors({ ...paginationState });
   const totalPages = data?.meta?.total || 0;
@@ -39,13 +38,13 @@ const AuthorList = () => {
         <AuthorListTable authorList={authorList} />
         <div className="container">
           <Pagination
-            offset={paginationState.limit || 0}
-            currentPage={paginationState.page || 0}
-            totalItems={totalPages}
-            onChange={(page) =>
-              setPaginationState({ ...paginationState, page })
-            }
-            maxVisiblePages={3}
+            totalCount={totalPages}
+            pageSize={paginationState.limit}
+            currentPage={paginationState.page}
+            siblingCount={2}
+            onPageChange={(page) => {
+              setPaginationState((prev) => ({ ...prev, page }));
+            }}
           />
         </div>
       </section>

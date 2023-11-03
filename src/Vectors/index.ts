@@ -21,6 +21,7 @@ import LoaderIcon from "./loader";
 import AddVideoIcon from "./addVideo";
 import PlayIcon from "./play";
 import PauseIcon from "./pause";
+import InfoIcon from "./info";
 
 export {
   CheckMark,
@@ -46,4 +47,5 @@ export {
   AddVideoIcon,
   PlayIcon,
   PauseIcon,
+  InfoIcon,
 };

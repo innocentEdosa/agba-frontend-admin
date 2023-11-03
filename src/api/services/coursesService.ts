@@ -4,11 +4,13 @@ import {
   Course,
   CreateCourseType,
   CourseResponseType,
+  UpdateCourseParamsType,
 } from "@/types";
 import {
   CREATE_COURSE,
   GET_COURSE_BY_SLUG,
   GET_cOURSES,
+  UPDATE_COURSE,
 } from "@/api/constants/endpoints";
 
 export const createCourse = (params: CreateCourseType) => {
@@ -28,5 +30,14 @@ export const getCourses = (params: GetRequestParamsType) => {
 export const getCourseBySlug = (slug: string) => {
   return http.get<{ params: { slug: string } }, Course>(GET_COURSE_BY_SLUG, {
     params: { slug },
+  });
+};
+
+export const updateCourse = (data: UpdateCourseParamsType) => {
+  const { id, ...params } = data;
+  return http.put<Course>(`${UPDATE_COURSE}/${id}`, params, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
 };

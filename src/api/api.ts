@@ -1,16 +1,19 @@
-import { AxiosRequestConfig } from 'axios';
-import customRequest, { Transformer } from './helpers/customRequest';
+import { AxiosRequestConfig } from "axios";
+import customRequest, { Transformer } from "./helpers/customRequest";
 
 class Api {
   url: string;
 
-  private readonly defaultHeaders: { Authorization: string; 'Content-Type': string };
+  private readonly defaultHeaders: {
+    Authorization: string;
+    "Content-Type": string;
+  };
 
   constructor(url: string) {
     this.url = url;
     this.defaultHeaders = {
-      Authorization: '',
-      'Content-Type': 'application/json',
+      Authorization: "",
+      "Content-Type": "application/json",
     };
 
     this.setAuth = this.setAuth.bind(this);
@@ -20,24 +23,35 @@ class Api {
     this.defaultHeaders.Authorization = `Bearer ${accessToken}`;
   }
 
-  get<T, R = T>(path: string, options?: Record<never, never>, transform?: Transformer<T, R>) {
-    return this.request<T, R>(`${this.url}/${path}`, { method: 'GET', ...options }, transform);
+  get<T, R = T>(
+    path: string,
+    options?: Record<never, never>,
+    transform?: Transformer<T, R>
+  ) {
+    return this.request<T, R>(
+      `${this.url}/${path}`,
+      { method: "GET", ...options },
+      transform
+    );
   }
 
   post<T, R = T>(
     path: string,
     body: Record<string, unknown>,
-    options?: Pick<AxiosRequestConfig, 'headers' | 'onUploadProgress' | 'cancelToken'>,
-    transform?: Transformer<T, R>,
+    options?: Pick<
+      AxiosRequestConfig,
+      "headers" | "onUploadProgress" | "cancelToken" | "signal"
+    >,
+    transform?: Transformer<T, R>
   ) {
     return this.request<T, R>(
       `${this.url}/${path}`,
       {
-        method: 'POST',
+        method: "POST",
         data: body,
         ...options,
       },
-      transform,
+      transform
     );
   }
 
@@ -45,16 +59,16 @@ class Api {
     path: string,
     body: Record<string, unknown>,
     options?: Record<never, never>,
-    transform?: Transformer<T, R>,
+    transform?: Transformer<T, R>
   ) {
     return this.request<T, R>(
       `${this.url}/${path}`,
       {
-        method: 'PUT',
+        method: "PUT",
         data: body,
         ...options,
       },
-      transform,
+      transform
     );
   }
 
@@ -62,16 +76,16 @@ class Api {
     path: string,
     body?: Record<string, unknown>,
     options?: Record<never, never>,
-    transform?: Transformer<T, R>,
+    transform?: Transformer<T, R>
   ) {
     return this.request<T, R>(
       `${this.url}/${path}`,
       {
-        method: 'DELETE',
+        method: "DELETE",
         data: body,
         ...options,
       },
-      transform,
+      transform
     );
   }
 
@@ -85,7 +99,7 @@ class Api {
           ...(options?.headers || {}),
         },
       },
-      transform,
+      transform
     );
 }
 

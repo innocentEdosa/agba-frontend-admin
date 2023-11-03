@@ -13,24 +13,30 @@ import {
 } from "@/Vectors";
 import clsx from "clsx";
 import { usePopper } from "react-popper";
-import { ButtonGenre, ButtonVariant } from "@/types";
+import { ButtonGenre, ButtonVariant, CategoryType } from "@/types";
 import { useGetCategories } from "@/api/hooks/queries/categories";
-import CreateCategoryModal from "../Forms/CreateCategoryModal";
+import { useDeleteCategories } from "@/api/hooks/mutations/categories";
+import NotificationCard from "@/atoms/NotificationCard";
 
 export type CategoryModalProps = {
   show: boolean;
   onDismiss: () => void;
   showCreateCategory: () => void;
+  onEditCategory: (category: CategoryType) => void;
 };
 
 const CategoryModal = ({
   show,
   onDismiss,
   showCreateCategory,
+  onEditCategory,
 }: CategoryModalProps) => {
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
+    []
+  );
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: "right-start",
     modifiers: [
@@ -49,7 +55,10 @@ const CategoryModal = ({
     ],
   });
   const [showSubCategories, setShowSubCategories] = React.useState("");
+  const [error, setError] = useState("");
   const { data: categoriesData } = useGetCategories({});
+  const { mutate: deleteCategories, isPending: idDeletingcategories } =
+    useDeleteCategories();
 
   const categories = useMemo(() => {
     if (!categoriesData?.top_category) return [];
@@ -70,6 +79,8 @@ const CategoryModal = ({
 
   const closeCategoriesModal = () => {
     closeSubcategoriesModal();
+    setSelectedCategories([]);
+    setError("");
     onDismiss();
   };
 
@@ -82,6 +93,7 @@ const CategoryModal = ({
     e: React.ChangeEvent<HTMLInputElement>,
     id: string
   ) => {
+    setError("");
     if (e.target.checked && !selectedCategories.includes(id)) {
       setSelectedCategories((prev) => [...prev, id]);
     }
@@ -90,13 +102,57 @@ const CategoryModal = ({
     }
   };
 
+  const handleEditCategory = () => {
+    if (selectedCategories.length > 1) {
+      return setError("You can only edit one category at a time");
+    }
+    if (!selectedCategories.length) {
+      return setError("Please select a category to edit");
+    }
+    onEditCategory(
+      categories.find((category) => category.id === selectedCategories[0])!
+    );
+    closeCategoriesModal();
+  };
+
+  const handleSelectSubCategory = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) => {
+    setError("");
+    if (e.target.checked && !selectedSubCategories.includes(id)) {
+      setSelectedSubCategories((prev) => [...prev, id]);
+    }
+    if (!e.target.checked && selectedSubCategories.includes(id)) {
+      setSelectedSubCategories((prev) => prev.filter((ids) => ids !== id));
+    }
+  };
+
+  const handleEditSubCategory = () => {
+    if (selectedSubCategories.length > 1) {
+      return setError("You can only edit one category at a time");
+    }
+    if (!selectedSubCategories.length) {
+      return setError("Please select a category to edit");
+    }
+    onEditCategory(
+      displaySubCategories.find(
+        (category) => category.id === selectedSubCategories[0]
+      )!
+    );
+    closeCategoriesModal();
+  };
+
   return (
     <>
       <Modal transparent onDismiss={closeCategoriesModal} show={show}>
         <div className={style.modal}>
           <h2 className=" heading_sm6">Course Categories</h2>
           <div className={clsx(style.btnGroup, style.categoryBtnGroup)}>
-            <Button genre={ButtonGenre.Text} variant={ButtonVariant.Danger}>
+            <Button
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Danger}
+              onClick={() => deleteCategories(selectedCategories)}>
               <TrashIcon size={16} />
               <span>Delete</span>
             </Button>
@@ -104,11 +160,15 @@ const CategoryModal = ({
               <DirectBoxReceiptIcon size={16} />
               <span>Archive</span>
             </Button>
-            <Button genre={ButtonGenre.Text} variant={ButtonVariant.Neutral}>
+            <Button
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Neutral}
+              onClick={handleEditCategory}>
               <Edit2Icon size={16} />
               <span>Edit</span>
             </Button>
           </div>
+          {error && <NotificationCard content={error} />}
           <div className={style.categories}>
             {!!!categories.length && <span>No categories created</span>}
             {categories.map((category) => (
@@ -174,7 +234,8 @@ const CategoryModal = ({
                 </Button>
                 <Button
                   genre={ButtonGenre.Text}
-                  variant={ButtonVariant.Neutral}>
+                  variant={ButtonVariant.Neutral}
+                  onClick={handleEditSubCategory}>
                   <Edit2Icon size={12} />
                   <span>Edit</span>
                 </Button>
@@ -182,7 +243,10 @@ const CategoryModal = ({
               {!!!displaySubCategories.length && <span>No sub Categories</span>}
               {displaySubCategories.map((category) => (
                 <div className={style.category} key={category.id}>
-                  <Checkbox label={category.title} />
+                  <Checkbox
+                    onChange={(e) => handleSelectSubCategory(e, category.id)}
+                    label={category.title}
+                  />
                 </div>
               ))}
             </div>

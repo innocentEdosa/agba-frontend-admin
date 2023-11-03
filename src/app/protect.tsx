@@ -1,6 +1,7 @@
 "use client";
 
 import lsKeys from "@/constants/lsKeys";
+import useAuth from "@/hooks/useAuth";
 import checkIsTokenExpired from "@/utils/checkIsTokenExpired";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -16,6 +17,8 @@ const PrivatRoute = ({ protectedRoutes, children }: props) => {
   const pathname = usePathname();
   const pathIsProtected = protectedRoutes?.indexOf(pathname!) !== -1;
   const [isProcessing, setIsProcessing] = useState(true);
+
+  const {} = useAuth();
 
   useEffect(() => {
     const ls = new SecureLS();

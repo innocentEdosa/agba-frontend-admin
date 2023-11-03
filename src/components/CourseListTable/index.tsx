@@ -14,39 +14,51 @@ import ThumbnailsGroup from "../ThumbnailsGroup";
 import DropdownMenu from "../DropdownMenu";
 import { Button } from "@/atoms";
 import DeleteModal from "../DeleteModal";
+import EditCourseModal from "../Forms/CourseActionModal/EditCourseModal";
+import Link from "next/link";
+import { formatCurrency } from "@/utils/formatCurrency";
+import AvatarGroup from "../AvatarGroup";
 
 const columnHelper = createColumnHelper<Course>();
 const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
   const [showDeleteCourseModal, setShowDeleteCourseModal] = useState(false);
   const router = useRouter();
+  const [courseToEdit, setCourseToEdit] = useState<Course | null>(null);
 
   const columns = useMemo(() => {
     return [
       columnHelper.accessor("title", {
         header: "Course Title",
         cell: (info) => (
-          <div className={styles.courseTitleWrapper}>
+          <Link
+            href={`/courses/${info.row.original.slug}`}
+            className={styles.courseTitleWrapper}>
             <p className={styles.tableRowBoldText}>{info.getValue()}</p>
             {/* <ThumbnailsGroup
               thumbnails={info.cell.row.original.thumbnails}
               displayedThumbnails={4}
             /> */}
-          </div>
+          </Link>
         ),
       }),
       columnHelper.accessor("description", {
         header: "Description",
         cell: (info) => <div>{info.getValue()}</div>,
       }),
-      columnHelper.accessor("author", {
+      columnHelper.accessor("authors", {
         header: "Author",
         cell: (info) => (
-          <span className={styles.tableRowBoldText}>{info.getValue()}</span>
+          <AvatarGroup
+            avatars={info.getValue().map((author) => author.avatar)}
+            maxDisplay={3}
+          />
         ),
       }),
-      columnHelper.accessor("price", {
+      columnHelper.accessor("price_value", {
         header: "Price",
-        cell: (info) => <span>{info.getValue() || "N/A"}</span>,
+        cell: (info) => (
+          <span>{formatCurrency(info.getValue()!) || "N/A"}</span>
+        ),
       }),
       columnHelper.accessor("category", {
         header: "Category",
@@ -85,7 +97,8 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
             <Button
               genre={ButtonGenre.Text}
               variant={ButtonVariant.Neutral}
-              className={styles.actionBtn}>
+              className={styles.actionBtn}
+              onClick={() => setCourseToEdit(info.row.original)}>
               <Edit2Icon size={12} />
               <span>Edit</span>
             </Button>
@@ -129,6 +142,11 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
         message="Are you sure you want to delete this video? This action can not be reversed."
         cancelAction={() => setShowDeleteCourseModal(false)}
         confirmationAction={() => {}}
+      />
+      <EditCourseModal
+        show={!!courseToEdit}
+        onDismiss={() => setCourseToEdit(null)}
+        initialData={courseToEdit}
       />
     </div>
   );

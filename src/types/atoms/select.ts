@@ -1,25 +1,22 @@
 import { ChangeEvent, ChangeEventHandler } from "react";
 import { Direction } from "./shared";
+import { Control } from "react-hook-form";
 export type Option = {
   label: string;
   value: string;
 };
 
 export type SelectType = {
-  label?: string;
   options: Option[];
-  placeholder: string;
-  isClearable?: boolean;
-  isSearchable?: boolean;
-  isDisabled?: boolean;
-  isLoading?: boolean;
-  isRtl?: boolean;
-  selectMultiple?: boolean;
-  fullWidth?: boolean;
-  name: string;
-  onChange: (e: ChangeEvent) => void;
-  onBlur: (e: ChangeEvent) => void;
-  defaultValue?: string;
+  label: string;
   direction?: Direction;
+  placeholder?: string;
   error?: string;
+  control: Control<any>;
+  name: string;
+  defaultValue?: string;
 };
+
+export type MultiSelectType = {
+  defaultValues?: string[];
+} & Omit<SelectType, "defaultValue">;

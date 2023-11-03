@@ -9,6 +9,7 @@ import ThumbnailsGroup from "../ThumbnailsGroup";
 import { Button } from "@/atoms";
 import DropdownMenu from "../DropdownMenu";
 import DeleteModal from "../DeleteModal";
+import EditAuthorModal from "../Forms/AuthorActionModal/EditAuthorModal";
 
 export type AuthorListTableProps = {
   authorList: Author[];
@@ -17,6 +18,7 @@ export type AuthorListTableProps = {
 const columnHelper = createColumnHelper<Author>();
 const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
   const [showDeleteAuthorModal, setShowDeleteAuthorModal] = useState(false);
+  const [authorToEdit, setAuthorToEdit] = useState<Author | null>(null);
   const router = useRouter();
 
   const columns = useMemo(() => {
@@ -36,7 +38,7 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
           </div>
         ),
       }),
-      columnHelper.accessor("bio", {
+      columnHelper.accessor("details", {
         header: "Short Bio",
         cell: (info) => (
           <span className={styles.bio}>{info.getValue() ?? "No Bio yet"}</span>
@@ -105,7 +107,8 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
             <Button
               genre={ButtonGenre.Text}
               variant={ButtonVariant.Neutral}
-              className={styles.actionBtn}>
+              className={styles.actionBtn}
+              onClick={() => setAuthorToEdit(info.row.original)}>
               <Edit2Icon size={12} />
               <span>Edit</span>
             </Button>
@@ -139,6 +142,11 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
         message="Are you sure you want to delete this video? This action can not be reversed."
         cancelAction={() => setShowDeleteAuthorModal(false)}
         confirmationAction={() => {}}
+      />
+      <EditAuthorModal
+        show={!!authorToEdit}
+        onDismiss={() => setAuthorToEdit(null)}
+        initialData={authorToEdit}
       />
     </div>
   );

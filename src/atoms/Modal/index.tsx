@@ -16,7 +16,7 @@ const Modal = ({
   onDismiss,
 }: ModalProps) => {
   return (
-    <Dialog open={show} onClose={onDismiss} className={styles.wrapper}>
+    <Dialog open={show} onClose={onDismiss} className={styles.wrapper} unmount>
       <div className={styles.overlay} aria-hidden="true" />
       <div className={styles.modal}>
         <Dialog.Panel
