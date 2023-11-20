@@ -23,7 +23,10 @@ const PrivatRoute = ({ protectedRoutes, children }: props) => {
   useEffect(() => {
     const ls = new SecureLS();
     let tokenParams = ls.get(lsKeys.auth);
-    if (checkIsTokenExpired(tokenParams?.token?.expires_at)) {
+    if (
+      checkIsTokenExpired(tokenParams?.token?.expires_at) &&
+      pathIsProtected
+    ) {
       router.replace("/login");
     } else {
       setIsProcessing(false);
