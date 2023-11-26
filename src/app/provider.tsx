@@ -7,11 +7,20 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import PrivatRoute from "./protect";
+import UserContextWrapper from "@/contexts/user";
+import AuthContextWrapper from "@/contexts/auth";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <PrivatRoute protectedRoutes={["/dashboard", "/courses"]}>
+      <PrivatRoute
+        protectedRoutes={[
+          "/dashboard",
+          "/courses",
+          "/courses/.*",
+          "/authors",
+          "/authors/.*",
+        ]}>
         <ResponsiveContextWrapper>
           <ToastContainer
             position="bottom-right"
@@ -24,7 +33,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             draggable
             pauseOnHover
           />
-          {children}
+          <AuthContextWrapper>
+            <UserContextWrapper>{children}</UserContextWrapper>
+          </AuthContextWrapper>
         </ResponsiveContextWrapper>
       </PrivatRoute>
     </QueryClientProvider>

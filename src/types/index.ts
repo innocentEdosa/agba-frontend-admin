@@ -6,9 +6,10 @@ export * from "./table";
 export * from "./auth";
 export * from "./course";
 export * from "./author";
+export * from "./user";
 
 export * from "./api";
 export * from "./shared";
 export * from "./vector";
-export * from "./video"
-export * from "./upload"
+export * from "./video";
+export * from "./upload";

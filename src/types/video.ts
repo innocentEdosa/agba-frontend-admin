@@ -27,7 +27,7 @@ export type CreateVideoDetails = {
   duration?: number;
   ext?: string;
   url?: string;
-  s3Path?: string;
+  s3_path?: string;
   public_id?: string;
   asset_id?: string;
 };
@@ -47,7 +47,7 @@ export type UpdateVideo = {
   url?: string;
   public_id?: string;
   asset_id?: string;
-  s3Path?: string;
+  s3_path?: string;
 };
 
 export type UpdateVideoParams = {

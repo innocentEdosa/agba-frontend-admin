@@ -31,7 +31,7 @@ const ImageInput = ({
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles[0]);
     onChange(acceptedFiles[0]);
-  }, []);
+  }, [onChange]);
 
   const { getRootProps, getInputProps, isDragActive, inputRef, acceptedFiles } =
     useDropzone({
@@ -56,7 +56,7 @@ const ImageInput = ({
       <div>
         <div className={style.dropboxWrapper}>
           {!!preview ? (
-            <img className={style.imagePreview} src={preview} />
+            <img className={style.imagePreview} src={preview} alt="" />
           ) : (
             <div className={style.addImageIcon}>
               <AddImageIcon fill="#001F80" />

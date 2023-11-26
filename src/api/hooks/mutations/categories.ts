@@ -1,4 +1,5 @@
 import {
+  ARCHIVE_CATEGORIES_MUTATION_KEY,
   CATEGORIES,
   CREATE_CATEGORY_MUTATION_KEY,
   DELETE_CATEGORIES_MUTATION_KEY,
@@ -6,6 +7,7 @@ import {
 } from "@/api/constants/keys";
 import queryClient from "@/api/queryClient";
 import {
+  archiveCategories,
   createCategory,
   deleteCategories,
   updateCategory,
@@ -22,7 +24,7 @@ export const useCreateCategory = () => {
   });
 };
 
-export const useUpdateCategory = () => { 
+export const useUpdateCategory = () => {
   return useMutation({
     mutationKey: [UPDATE_CATEGORY_MUTATION_KEY],
     mutationFn: updateCategory,
@@ -30,12 +32,22 @@ export const useUpdateCategory = () => {
       queryClient.invalidateQueries({ queryKey: [CATEGORIES] });
     },
   });
-}
+};
 
 export const useDeleteCategories = () => {
   return useMutation({
     mutationKey: [DELETE_CATEGORIES_MUTATION_KEY],
     mutationFn: deleteCategories,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [CATEGORIES] });
+    },
+  });
+};
+
+export const useArchiveCategories = () => {
+  return useMutation({
+    mutationKey: [ARCHIVE_CATEGORIES_MUTATION_KEY],
+    mutationFn: archiveCategories,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [CATEGORIES] });
     },

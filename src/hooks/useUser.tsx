@@ -1,19 +1,10 @@
-import { useGetMe } from "@/api/hooks/queries/user";
-import useAuth from "./useAuth";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/user";
 
 const useUser = () => {
-  const { isAuth } = useAuth();
-  const {
-    isLoading: isProfileLoading,
-    data: profile,
-    error: profileError,
-  } = useGetMe({ isAuth });
+  const userState = useContext(UserContext);
 
-  return {
-    isProfileLoading,
-    profile,
-    profileError,
-  };
+  return userState;
 };
 
 export default useUser;

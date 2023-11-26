@@ -47,7 +47,6 @@ const useUploader = ({ file }: { file: File | null }) => {
           }
         })
         .onError((error) => {
-          console.log(error);
           setError(error?.message);
         })
         .onComplete((data) => {

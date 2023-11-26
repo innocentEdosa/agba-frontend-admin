@@ -2,10 +2,21 @@ import React, { useMemo } from "react";
 import styles from "./courseVideos.module.css";
 import { VideoListItem } from "@/components";
 import { useGetCourseVideos } from "@/api/hooks/queries/video";
+import { filterOptions } from "@/constants/filterMappers";
+import { VideoStaus } from "@/constants/video";
+import qs from "qs";
 
 type CourseVideoType = {
   courseId?: string;
 };
+
+const initialFilter = [
+  {
+    key: "status",
+    value: VideoStaus.PUBLISHED,
+    condition: filterOptions.EQUAL,
+  },
+];
 
 const CourseVideos = ({ courseId }: CourseVideoType) => {
   const [paginationState, setPaginationState] = React.useState({
@@ -15,6 +26,7 @@ const CourseVideos = ({ courseId }: CourseVideoType) => {
   const { data: courseVideoResponse, isLoading } = useGetCourseVideos({
     id: courseId!,
     ...paginationState,
+    filter: qs.stringify([...initialFilter]),
   });
 
   const videos = useMemo(() => {

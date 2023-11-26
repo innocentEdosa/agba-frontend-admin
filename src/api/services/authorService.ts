@@ -1,6 +1,8 @@
 import http from "@/api/htttp";
 import {
+  ARCHIVE_AUTHOR,
   CREATE_AUTHOR,
+  DELETE_AUTHOR,
   GET_AUTHORS,
   UPDATE_AUTHOR,
 } from "../constants/endpoints";
@@ -38,4 +40,12 @@ export const updateAuthor = (data: UpdateAuthorParams) => {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+export const deleteAuthor = (id: string) => {
+  return http.delete(`${DELETE_AUTHOR}/${id}`);
+};
+
+export const archiveAuthor = (id: string) => {
+  return http.put(`${ARCHIVE_AUTHOR}/${id}`, {});
 };

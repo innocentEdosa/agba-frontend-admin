@@ -6,7 +6,9 @@ import {
   Video,
 } from "@/types";
 import {
+  ARCHIVE_VIDEO,
   CREATE_VIDEO,
+  DELETE_VIDEO,
   GET_COURSE_VIDEOS,
   UPDATE_VIDEO,
 } from "../constants/endpoints";
@@ -30,4 +32,12 @@ export const GEtCourseVideos = (params: GetCourseVideosParams) => {
     GET_COURSE_VIDEOS,
     { params }
   );
+};
+
+export const deleteVideo = (id: string) => {
+  return http.delete(`${DELETE_VIDEO}/${id}`);
+};
+
+export const archiveVideo = (id: string) => {
+  return http.put(`${ARCHIVE_VIDEO}/${id}`, {});
 };

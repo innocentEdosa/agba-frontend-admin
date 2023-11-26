@@ -36,7 +36,7 @@ const VideoUpload = ({
         onChange({ file: acceptedFiles[0], duration });
       }
     },
-    [duration]
+    [duration, onChange]
   );
 
   const { getRootProps, getInputProps, isDragActive, inputRef, acceptedFiles } =
@@ -56,7 +56,7 @@ const VideoUpload = ({
     return () => {
       URL.revokeObjectURL(preview);
     };
-  }, [file]);
+  }, [file, preview]);
 
   useEffect(() => {
     if (preview) {

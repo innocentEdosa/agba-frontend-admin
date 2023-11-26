@@ -15,10 +15,7 @@ const AvatarGroup = ({ avatars, maxDisplay }: AvatarGroupProps) => {
   return (
     <div className={styles.wrapper}>
       {avatarsToDisplay.map((avatar, index) => (
-        <Avatar
-          key={avatar.id}
-          src={avatar.aws_url}
-        />
+        <Avatar key={avatar?.id} src={avatar?.cloudinary_url} />
       ))}
       {!!avatarsToHide.length && (
         <div className={styles.avatarsRemainingCount}>
