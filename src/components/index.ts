@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 import Review from "./Review";
 import Table from "./Table";
 import Tabs from "./Tabs";
-import CourseCard from "./CourseCard.tsx";
+import CourseCard from "./CourseCard";
 import DropdownMenu from "./DropdownMenu";
 import VideoPlayer from "./Video";
 import VideoListItem from "./VideoListItem.";

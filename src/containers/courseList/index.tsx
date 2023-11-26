@@ -24,8 +24,6 @@ import {
 import {
   ButtonVariant,
   CategoryType,
-  CreateCategoryParam,
-  UpdateCategoryParam,
 } from "@/types";
 import { useGetCourses } from "@/api/hooks/queries/course";
 import { filterOptions } from "@/constants/filterMappers";
