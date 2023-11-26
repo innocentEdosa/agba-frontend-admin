@@ -1,7 +1,7 @@
 import { Button, Modal } from "@/atoms";
 import { ButtonVariant } from "@/types";
 import styles from "./deleteModal.module.css";
-import { TrashIcon } from "@/Vectors";
+import { LoaderIcon, TrashIcon } from "@/Vectors";
 
 type DeleteModalProps = {
   title: string;
@@ -10,24 +10,32 @@ type DeleteModalProps = {
   cancelText?: string;
   confirmationAction: () => void;
   cancelAction: () => void;
+  actionBtnVariant?: ButtonVariant;
   show: boolean;
+  isActionProcessing?: boolean;
+  showIcon?: boolean;
 };
 
-const DeleteModal = ({
+const ConfirmationModal = ({
   title,
   message,
   confirmationText = "Yes, I want to delete",
   cancelText = "Cancel",
   cancelAction,
   confirmationAction,
+  actionBtnVariant = ButtonVariant.Danger,
+  isActionProcessing,
+  showIcon = true,
   show,
 }: DeleteModalProps) => {
   return (
     <Modal show={show} onDismiss={cancelAction}>
       <div className={styles.modal}>
-        <span className={styles.deleteIcon}>
-          <TrashIcon size={16} />
-        </span>
+        {!!showIcon && (
+          <span className={styles.deleteIcon}>
+            <TrashIcon size={16} />
+          </span>
+        )}
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.text}>{message}</p>
         <div className={styles.btnGroup}>
@@ -38,10 +46,11 @@ const DeleteModal = ({
             {cancelText}
           </Button>
           <Button
-            variant={ButtonVariant.Danger}
+            variant={actionBtnVariant}
             onClick={confirmationAction}
             className={styles.btn}>
-            {confirmationText}
+            {!isActionProcessing && confirmationText}
+            {isActionProcessing && <LoaderIcon />}
           </Button>
         </div>
       </div>
@@ -49,4 +58,4 @@ const DeleteModal = ({
   );
 };
 
-export default DeleteModal;
+export default ConfirmationModal;

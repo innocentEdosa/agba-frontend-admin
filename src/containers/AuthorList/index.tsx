@@ -9,14 +9,28 @@ import { Button } from "@/atoms";
 import { ButtonVariant } from "@/types";
 import { AddIcon } from "@/Vectors";
 import { useGetAuthors } from "@/api/hooks/queries/authors";
+import { AuthorStatus } from "@/constants/author";
+import { filterOptions } from "@/constants/filterMappers";
+import qs from "qs";
+
+const initialFilter = [
+  {
+    key: "status",
+    value: AuthorStatus.ACTIVE,
+    condition: filterOptions.EQUAL,
+  },
+];
 
 const AuthorList = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [paginationState, setPaginationState] = useState({
     page: 1,
-    limit: 1,
+    limit: 20,
   });
-  const { data, isLoading } = useGetAuthors({ ...paginationState });
+  const { data, isLoading } = useGetAuthors({
+    ...paginationState,
+    filter: qs.stringify([...initialFilter]),
+  });
   const totalPages = data?.meta?.total || 0;
 
   const authorList = useMemo(() => {

@@ -7,7 +7,12 @@ import {
   iNITIALIZE_VIDEO_UPLOAD,
 } from "../constants/endpoints";
 import htttp from "../htttp";
-import { OnErrorFnType, OnProgressFnType, UploadCompleteResponseData, onComplete } from "@/types";
+import {
+  OnErrorFnType,
+  OnProgressFnType,
+  UploadCompleteResponseData,
+  onComplete,
+} from "@/types";
 
 export type PartType = { signedUrl: string; PartNumber: number };
 export type UploadedPartType = { ETag: string; PartNumber: number };
@@ -139,10 +144,8 @@ export class MultiPartUploader {
 
     if (!this.parts.length) {
       if (!activeConnections) {
-        console.log("completed");
         this.complete();
       }
-      console.log("no parts");
       return;
     }
 
@@ -263,7 +266,6 @@ export class MultiPartUploader {
         })
         .then((res) => {
           const ETag = res.headers["Etag"] || res.headers["etag"];
-          console.log(res.headers);
           if (ETag) {
             const uploadedPart = {
               PartNumber: part.PartNumber,

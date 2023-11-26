@@ -4,11 +4,7 @@ import { PauseIcon, PlayIcon } from "@/Vectors";
 import { useState } from "react";
 import clsx from "clsx";
 
-const VideoPlayer = ({
-  src = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-}: {
-  src?: string;
-}) => {
+const VideoPlayer = ({ src = "" }: { src?: string }) => {
   const { ref: videoRef, play, pause, isPlaying } = useVideoControls();
   const [showControl, setShowControl] = useState(false);
   const handleMouseEnter = () => {

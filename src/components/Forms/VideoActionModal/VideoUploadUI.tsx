@@ -46,17 +46,12 @@ const VideoUploader = ({
   };
 
   useEffect(() => {
-    if (file) {
-      console.log(file);
-    }
-  }, [file]);
-
-  useEffect(() => {
     if (data) {
+      console.log(data);
       mutate(
         {
           url: data.aws_url,
-          s3Path: data.s3Path,
+          s3_path: data.s3Path,
           id: videoId,
           ext: getFileExt(file!),
           size: file?.size,

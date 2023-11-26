@@ -1,4 +1,4 @@
-import { RegisterParamsType, LoginParamsType } from "@/types";
+import { RegisterParamsType, LoginParamsType, UserType } from "@/types";
 import http from "@/api/htttp";
 import {
   GET_ME_URL,
@@ -15,6 +15,6 @@ export const login = (
 ): Promise<{ token: { token: string; expires_at: string } }> =>
   http.post(LOGIN_URL, params, {});
 
-export const getMe = () => http.get(GET_ME_URL);
+export const getMe = () => http.get<{}, UserType>(GET_ME_URL);
 
 export const logout = () => http.post(LOGOUT_USER, {}, {});

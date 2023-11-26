@@ -52,7 +52,6 @@ export class Uploader {
           signal: controller.signal,
           onUploadProgress: (progressEvent) => {
             if (progressEvent.progress) {
-              console.log(progressEvent);
               this.handleProgress(progressEvent.loaded, progressEvent.total!);
             }
           },

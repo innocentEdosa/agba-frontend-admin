@@ -2,14 +2,24 @@ import { Row, createColumnHelper } from "@tanstack/react-table";
 import React, { useMemo, useState } from "react";
 import Table from "../Table";
 import styles from "./authorlist.module.css";
-import { Edit2Icon, OptionsIcon, TrashIcon } from "@/Vectors";
+import {
+  DirectBoxReceiptIcon,
+  Edit2Icon,
+  OptionsIcon,
+  TrashIcon,
+} from "@/Vectors";
 import { useRouter } from "next/navigation";
 import { Author, ButtonGenre, ButtonVariant } from "@/types";
 import ThumbnailsGroup from "../ThumbnailsGroup";
 import { Button } from "@/atoms";
 import DropdownMenu from "../DropdownMenu";
-import DeleteModal from "../DeleteModal";
+import ConfirmationModal from "../ConfirmationModal";
 import EditAuthorModal from "../Forms/AuthorActionModal/EditAuthorModal";
+import {
+  useArchiveAuthor,
+  useDeleteAuthor,
+} from "@/api/hooks/mutations/author";
+import { toast } from "react-toastify";
 
 export type AuthorListTableProps = {
   authorList: Author[];
@@ -17,9 +27,39 @@ export type AuthorListTableProps = {
 
 const columnHelper = createColumnHelper<Author>();
 const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
-  const [showDeleteAuthorModal, setShowDeleteAuthorModal] = useState(false);
   const [authorToEdit, setAuthorToEdit] = useState<Author | null>(null);
+  const [authorToDeleteId, setAuthorToDeleteId] = useState<string | null>(null);
+  const [authorToArchiveId, setAuthorToArchiveId] = useState<string | null>(
+    null
+  );
   const router = useRouter();
+
+  const deleteAuthorMutation = useDeleteAuthor();
+  const archiveAuthorMutation = useArchiveAuthor();
+
+  const handleDeleteCourse = async (id: string) => {
+    await deleteAuthorMutation.mutateAsync(id, {
+      onSuccess: () => {
+        toast.success("Author deleted successfully");
+        setAuthorToDeleteId(null);
+      },
+      onError: () => {
+        toast.error("An error occured while deleting this author");
+      },
+    });
+  };
+
+  const handleArchiveCourse = async (id: string) => {
+    await archiveAuthorMutation.mutateAsync(id, {
+      onSuccess: () => {
+        toast.success("Author was deactivated successfully");
+        setAuthorToArchiveId(null);
+      },
+      onError: () => {
+        toast.error("An error occured while deactivating this author");
+      },
+    });
+  };
 
   const columns = useMemo(() => {
     return [
@@ -114,9 +154,19 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
             </Button>
             <Button
               genre={ButtonGenre.Text}
+              variant={ButtonVariant.Secondary}
+              className={styles.actionBtn}
+              onClick={(e) => {
+                setAuthorToArchiveId(info.row.original.id);
+              }}>
+              <DirectBoxReceiptIcon size={12} />
+              <span>Deactivate</span>
+            </Button>
+            <Button
+              genre={ButtonGenre.Text}
               variant={ButtonVariant.Danger}
               className={styles.actionBtn}
-              onClick={() => setShowDeleteAuthorModal(true)}>
+              onClick={() => setAuthorToDeleteId(info.row.original.id)}>
               <TrashIcon size={12} />
               <span>Delete</span>
             </Button>
@@ -136,12 +186,24 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
         defaultColumns={columns}
         // onRowClick={handleRowClick}
       />
-      <DeleteModal
-        show={showDeleteAuthorModal}
-        title="Delete Course"
-        message="Are you sure you want to delete this video? This action can not be reversed."
-        cancelAction={() => setShowDeleteAuthorModal(false)}
-        confirmationAction={() => {}}
+      <ConfirmationModal
+        show={!!authorToDeleteId}
+        title="Delete Author"
+        message="Are you sure you want to delete this Author? This action can not be reversed, If you don't want this author to be visible to users, then deactivate the author instead"
+        cancelAction={() => setAuthorToDeleteId(null)}
+        isActionProcessing={deleteAuthorMutation.isPending}
+        confirmationAction={() => handleDeleteCourse(authorToDeleteId!)}
+      />
+      <ConfirmationModal
+        show={!!authorToArchiveId}
+        title="Deactivate Author"
+        message="Are you sure you want to deactivate this Author? Once deactivated, this author will no longer be available to the public unless this action is reversed"
+        cancelAction={() => setAuthorToArchiveId(null)}
+        confirmationAction={() => handleArchiveCourse(authorToArchiveId!)}
+        confirmationText="Yes, i want to deactivate"
+        actionBtnVariant={ButtonVariant.Secondary}
+        isActionProcessing={archiveAuthorMutation.isPending}
+        showIcon={false}
       />
       <EditAuthorModal
         show={!!authorToEdit}

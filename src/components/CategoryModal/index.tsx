@@ -15,8 +15,25 @@ import clsx from "clsx";
 import { usePopper } from "react-popper";
 import { ButtonGenre, ButtonVariant, CategoryType } from "@/types";
 import { useGetCategories } from "@/api/hooks/queries/categories";
-import { useDeleteCategories } from "@/api/hooks/mutations/categories";
+import {
+  useArchiveCategories,
+  useDeleteCategories,
+} from "@/api/hooks/mutations/categories";
 import NotificationCard from "@/atoms/NotificationCard";
+import ConfirmationModal from "../ConfirmationModal";
+import { toast } from "react-toastify";
+import qs from "qs";
+import { CategoryStatus } from "@/constants/category";
+import { filterOptions } from "@/constants/filterMappers";
+
+
+const initialFilter = [
+  {
+    key: "status",
+    value: CategoryStatus.ACTIVE,
+    condition: filterOptions.EQUAL,
+  },
+];
 
 export type CategoryModalProps = {
   show: boolean;
@@ -34,6 +51,8 @@ const CategoryModal = ({
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [showDeleteModal, setShowdeleteModal] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     []
   );
@@ -56,9 +75,15 @@ const CategoryModal = ({
   });
   const [showSubCategories, setShowSubCategories] = React.useState("");
   const [error, setError] = useState("");
-  const { data: categoriesData } = useGetCategories({});
-  const { mutate: deleteCategories, isPending: idDeletingcategories } =
+  const { data: categoriesData } = useGetCategories({
+    page: 1,
+    limit: 100,
+    filter: qs.stringify([...initialFilter]),
+  });
+  const { mutate: deleteCategories, isPending: isDeletingcategories } =
     useDeleteCategories();
+  const { mutate: archiveCategories, isPending: isArchivingcategories } =
+    useArchiveCategories();
 
   const categories = useMemo(() => {
     if (!categoriesData?.top_category) return [];
@@ -143,6 +168,40 @@ const CategoryModal = ({
     closeCategoriesModal();
   };
 
+  const handleDeleteCategories = (type: "category" | "sub-category") => {
+    const params =
+      type === "category" ? selectedCategories : selectedSubCategories;
+    deleteCategories(params, {
+      onSuccess() {
+        type === "category"
+          ? setSelectedCategories([])
+          : setSelectedSubCategories([]);
+        toast.success("deleted successfully");
+        setShowdeleteModal(false);
+      },
+      onError() {
+        toast.error("An error occured while deleting");
+      },
+    });
+  };
+
+  const handleArchiveCategories = (type: "category" | "sub-category") => {
+    const params =
+      type === "category" ? selectedCategories : selectedSubCategories;
+    archiveCategories(params, {
+      onSuccess() {
+        type === "category"
+          ? setSelectedCategories([])
+          : setSelectedSubCategories([]);
+        toast.success("Archived successfully");
+        setShowArchiveModal(false);
+      },
+      onError() {
+        toast.error("An error occured");
+      },
+    });
+  };
+
   return (
     <>
       <Modal transparent onDismiss={closeCategoriesModal} show={show}>
@@ -150,13 +209,18 @@ const CategoryModal = ({
           <h2 className=" heading_sm6">Course Categories</h2>
           <div className={clsx(style.btnGroup, style.categoryBtnGroup)}>
             <Button
+              disabled={!!!selectedCategories.length}
               genre={ButtonGenre.Text}
               variant={ButtonVariant.Danger}
-              onClick={() => deleteCategories(selectedCategories)}>
+              onClick={() => setShowdeleteModal(true)}>
               <TrashIcon size={16} />
               <span>Delete</span>
             </Button>
-            <Button genre={ButtonGenre.Text} variant={ButtonVariant.Secondary}>
+            <Button
+              onClick={() => setShowArchiveModal(true)}
+              disabled={!!!selectedCategories.length}
+              genre={ButtonGenre.Text}
+              variant={ButtonVariant.Secondary}>
               <DirectBoxReceiptIcon size={16} />
               <span>Archive</span>
             </Button>
@@ -222,11 +286,17 @@ const CategoryModal = ({
                 </button>
               </div>
               <div className={clsx(style.btnGroup, style.subCategoryBtnGroup)}>
-                <Button genre={ButtonGenre.Text} variant={ButtonVariant.Danger}>
+                <Button
+                  onClick={() => setShowdeleteModal(true)}
+                  disabled={!!!selectedSubCategories.length}
+                  genre={ButtonGenre.Text}
+                  variant={ButtonVariant.Danger}>
                   <TrashIcon size={12} />
                   <span>Delete</span>
                 </Button>
                 <Button
+                  onClick={() => setShowArchiveModal(true)}
+                  disabled={!!!selectedSubCategories.length}
                   genre={ButtonGenre.Text}
                   variant={ButtonVariant.Secondary}>
                   <DirectBoxReceiptIcon size={12} />
@@ -253,6 +323,33 @@ const CategoryModal = ({
           )}
         </>
       </Modal>
+      <ConfirmationModal
+        show={!!showDeleteModal}
+        title="Delete Category"
+        message="Are you sure you want to delete this Category? This action can not be reversed. If you don't want the category to be visible, you can archive it instead"
+        cancelAction={() => setShowdeleteModal(false)}
+        confirmationAction={() =>
+          handleDeleteCategories(
+            !!selectedSubCategories.length ? "sub-category" : "category"
+          )
+        }
+        isActionProcessing={false}
+      />
+      <ConfirmationModal
+        show={!!showArchiveModal}
+        title="Archive Category"
+        message="Are you sure you want to archive this Category? Once archived, this course will no longer be visible"
+        cancelAction={() => setShowArchiveModal(false)}
+        confirmationAction={() =>
+          handleArchiveCategories(
+            !!selectedSubCategories.length ? "sub-category" : "category"
+          )
+        }
+        confirmationText="Yes, i want to archive it"
+        actionBtnVariant={ButtonVariant.Secondary}
+        isActionProcessing={false}
+        showIcon={false}
+      />
     </>
   );
 };

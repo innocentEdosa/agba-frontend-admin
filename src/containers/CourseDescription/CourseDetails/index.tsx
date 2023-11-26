@@ -12,6 +12,7 @@ import { EditCourseModal, Review } from "@/components";
 import Link from "next/link";
 import { Button } from "@/atoms";
 import { ButtonGenre, ButtonVariant, Course } from "@/types";
+import moment from "moment";
 
 const reviews = Array.from({ length: 4 }).map((_, index) => ({
   user: { email: "user@example.com", fullName: "Jack Robbinson" },
@@ -57,7 +58,7 @@ const CourseDetails = ({ course, isCourseLoading }: CourseDetailsParams) => {
           <span className={styles.sectionTitle}>Course Image</span>
           <img
             className={styles.courseImage}
-            src={course?.avatar?.aws_url || ""}
+            src={course?.avatar?.cloudinary_url || course?.avatar?.aws_url}
             alt=""
           />
         </div>
@@ -79,37 +80,47 @@ const CourseDetails = ({ course, isCourseLoading }: CourseDetailsParams) => {
         </div>
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Price</span>
-          <p className={styles.sectionText}>6,500</p>
+          <p className={styles.sectionText}>{course?.price_value}</p>
         </div>
-        <div className={styles.section}>
+        {/* <div className={styles.section}>
           <span className={styles.sectionTitle}>Category</span>
-          <p className={styles.sectionText}>Career growth</p>
+          <p className={styles.sectionText}>
+            {course?.category.title || "UnCategorized"}
+          </p>
         </div>
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Sub Category</span>
-          <p className={styles.sectionText}>Personal development</p>
-        </div>
+          <p className={styles.sectionText}>
+            {course?.sub_category.title || "No Sub Category"}
+          </p>
+        </div> */}
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Featured</span>
-          <span className={styles.badge} data-variant={"primary"}>
-            yes
+          <span
+            className={styles.badge}
+            data-variant={course?.is_featured ? "primary" : "danger"}>
+            {course?.is_featured ? "Yes" : "No"}
           </span>
         </div>
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Created</span>
-          <p className={styles.sectionText}>21/7/2023</p>
+          <p className={styles.sectionText}>
+            {moment(course?.created_at!).format("DD/MM/YYYY")}
+          </p>
         </div>
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Author</span>
           <div className={styles.authorDetails}>
-            <Avatar src="https://picsum.photos/50" />
+            <Avatar src={course?.authors[0]?.avatar?.cloudinary_url || ""} />
             <span className={styles.sectionTextDark}>Wisdom Chuks</span>
           </div>
         </div>
         <div className={styles.section}>
           <span className={styles.sectionTitle}>Coming Soon</span>
-          <p className={styles.badge} data-variant={"danger"}>
-            No
+          <p
+            className={styles.badge}
+            data-variant={course?.is_coming ? "primary" : "danger"}>
+            {course?.is_coming ? "Yes" : "No"}
           </p>
         </div>
         <div className={styles.section}>

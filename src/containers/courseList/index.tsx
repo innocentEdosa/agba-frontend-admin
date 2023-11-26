@@ -12,6 +12,8 @@ import {
 import CourseListTable from "@/components/CourseListTable";
 import CategoryModal from "@/components/CategoryModal";
 import clsx from "clsx";
+import qs from "qs";
+
 import {
   CreateCourseModal,
   CreateCategoryModal,
@@ -26,19 +28,21 @@ import {
   UpdateCategoryParam,
 } from "@/types";
 import { useGetCourses } from "@/api/hooks/queries/course";
-import {
-  useCreateCategory,
-  useUpdateCategory,
-} from "@/api/hooks/mutations/categories";
-import { toast } from "react-toastify";
+import { filterOptions } from "@/constants/filterMappers";
+import { CourseStatus } from "@/constants/course";
+
+const initialFilter = [
+  {
+    key: "status",
+    value: CourseStatus.PUBLISHED,
+    condition: filterOptions.EQUAL,
+  },
+];
 
 const CourseList = () => {
   const [paginationState, setPaginationState] = React.useState({
     page: 1,
-    limit: 2,
-  });
-  const { data: coursesData, isLoading } = useGetCourses({
-    ...paginationState,
+    limit: 20,
   });
   const [showCategoriesModal, setShowCategoriesModal] = React.useState(false);
   const [showCreateCategoryModal, setShowCreateCategoryModal] =
@@ -48,6 +52,10 @@ const CourseList = () => {
   const [editCategory, setEditCategory] = React.useState<CategoryType | null>(
     null
   );
+  const { data: coursesData, isLoading } = useGetCourses({
+    ...paginationState,
+    filter: qs.stringify([...initialFilter]),
+  });
 
   const handleSetEditCategoryId = useCallback((category: CategoryType) => {
     setEditCategory(category);

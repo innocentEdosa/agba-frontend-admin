@@ -7,6 +7,7 @@ import {
   UpdateCategoryParam,
 } from "@/types";
 import {
+  ARCHIVE_CATEGORIES,
   CREATE_CATEGORY,
   DELETE_CATEGORIES,
   GET_CATEGORIES,
@@ -38,4 +39,7 @@ export const updateCategory = (data: UpdateCategoryParam) => {
 
 export const deleteCategories = (categoryIds: string[]) => {
   return http.delete(DELETE_CATEGORIES, { categoryIds });
+};
+export const archiveCategories = (categoryIds: string[]) => {
+  return http.put(ARCHIVE_CATEGORIES, { categoryIds });
 };

@@ -18,6 +18,10 @@ import Link from "next/link";
 import { formatDuration } from "@/utils/formatDuration";
 import moment from "moment";
 import EditVideoModal from "../Forms/VideoActionModal/EditVideoModal";
+import ConfirmationModal from "../ConfirmationModal";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { useArchiveVideo, useDeleteVideo } from "@/api/hooks/mutations/video";
 
 const reviews = Array.from({ length: 2 }).map((_, index) => ({
   user: { email: "user@example.com", fullName: "Jack Robbinson" },
@@ -31,16 +35,53 @@ type VideoListItemProps = {
 
 const VideoListItem = ({ video }: VideoListItemProps) => {
   const [showEditVideoModal, setShowEditVideoModal] = useState(false);
+  const [showDeleteVideoModal, setShowDeleteVideoModal] = useState(false);
+  const [showArchiveVideoModal, setShowArchiveVideoModal] = useState(false);
+  const deleteVideoMutation = useDeleteVideo(video.course_id);
+  const archiveVideoMutation = useArchiveVideo(video.course_id);
+
+  const router = useRouter();
+
+  const handleDeleteVideo = async () => {
+    await deleteVideoMutation.mutateAsync(video.id, {
+      onSuccess: () => {
+        toast.success("Video deleted successfully");
+        setShowDeleteVideoModal(false);
+      },
+      onError: () => {
+        toast.error("An error occured while deleting this author");
+      },
+    });
+  };
+
+  const handleArchiveVideo = async () => {
+    await archiveVideoMutation.mutateAsync(video.id, {
+      onSuccess: () => {
+        toast.success("Video was archived successfully");
+        setShowArchiveVideoModal(false);
+      },
+      onError: () => {
+        toast.error("An error occured while archiving this video");
+      },
+    });
+  };
+
   return (
     <div>
       <article className={styles.wrapper}>
-        <VideoPlayer />
+        <VideoPlayer src={video.url} />
         <div className={clsx(styles.btnGroup)}>
-          <Button genre={ButtonGenre.Text} variant={ButtonVariant.Danger}>
+          <Button
+            onClick={() => setShowDeleteVideoModal(true)}
+            genre={ButtonGenre.Text}
+            variant={ButtonVariant.Danger}>
             <TrashIcon size={16} />
             <span>Delete</span>
           </Button>
-          <Button genre={ButtonGenre.Text} variant={ButtonVariant.Secondary}>
+          <Button
+            onClick={() => setShowArchiveVideoModal(true)}
+            genre={ButtonGenre.Text}
+            variant={ButtonVariant.Secondary}>
             <DirectBoxReceiptIcon height={16} width={16} />
             <span>Archive</span>
           </Button>
@@ -110,6 +151,25 @@ const VideoListItem = ({ video }: VideoListItemProps) => {
         show={showEditVideoModal}
         onDismiss={() => setShowEditVideoModal(false)}
         defaultData={video}
+      />
+      <ConfirmationModal
+        show={showDeleteVideoModal}
+        title="Delete Video"
+        message="Are you sure you want to delete this Video? This action can not be reversed, If you don't want this video to be visible to users, then archive the video instead"
+        cancelAction={() => setShowDeleteVideoModal(false)}
+        isActionProcessing={deleteVideoMutation.isPending}
+        confirmationAction={handleDeleteVideo}
+      />
+      <ConfirmationModal
+        show={showArchiveVideoModal}
+        title="Archive Video"
+        message="Are you sure you want to archive this Video? Once archived, this video will no longer be available to the public unless this action is reversed"
+        cancelAction={() => setShowArchiveVideoModal(false)}
+        confirmationAction={handleArchiveVideo}
+        confirmationText="Yes, i want to archive it"
+        actionBtnVariant={ButtonVariant.Secondary}
+        isActionProcessing={archiveVideoMutation.isPending}
+        showIcon={false}
       />
     </div>
   );
