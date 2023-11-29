@@ -11,8 +11,8 @@ export type Course = {
   category_id: string;
   sub_category_id: string;
   authors: Author[];
-  category: CategoryType;
-  sub_category: CategoryType;
+  category?: CategoryType;
+  sub_category?: CategoryType;
   avatar?: Avatar;
   slug: string;
   rating: number;

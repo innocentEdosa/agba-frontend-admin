@@ -91,11 +91,13 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
       }),
       columnHelper.accessor("category", {
         header: "Category",
-        cell: (info) => <span>{info.getValue().title}</span>,
+        cell: (info) => <span>{info?.getValue()?.title || "No category"}</span>,
       }),
       columnHelper.accessor("sub_category", {
         header: "Sub category",
-        cell: (info) => <span>{info.getValue().title}</span>,
+        cell: (info) => (
+          <span>{info?.getValue()?.title || "No sub category"}</span>
+        ),
       }),
       columnHelper.accessor("rating", {
         header: "Rating",
