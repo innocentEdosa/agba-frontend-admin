@@ -45,10 +45,11 @@ export class Uploader {
       const formData = new FormData();
       formData.append("file", this.file);
       axios
-        .put(url, formData, {
+        .put(url, this.file, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": this.file.type,
           },
+
           signal: controller.signal,
           onUploadProgress: (progressEvent) => {
             if (progressEvent.progress) {

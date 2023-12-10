@@ -248,12 +248,12 @@ export class MultiPartUploader {
     return new Promise((resolve, reject) => {
       const controller = new AbortController();
       this.activeConnections[part.PartNumber - 1] = controller;
-      const formData = new FormData();
-      formData.append("file", file);
+      // const formData = new FormData();
+      // formData.append("file", file);
       axios
-        .put(part.signedUrl, formData, {
+        .put(part.signedUrl, file, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": file.type,
           },
           signal: controller.signal,
           onUploadProgress: (progressEvent) => {

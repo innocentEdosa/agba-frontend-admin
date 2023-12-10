@@ -50,6 +50,7 @@ const VideoUpload = ({
 
   useEffect(() => {
     if (file) {
+      console.log(file);
       setPreview(URL.createObjectURL(file));
     }
 
