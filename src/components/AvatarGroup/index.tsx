@@ -9,8 +9,12 @@ type AvatarGroupProps = {
 };
 
 const AvatarGroup = ({ avatars, maxDisplay }: AvatarGroupProps) => {
-  const avatarsToDisplay = [...avatars].slice(0, maxDisplay);
-  const avatarsToHide = [...avatars].slice(maxDisplay);
+  const avatarsToDisplay = Array.isArray(avatars)
+    ? [...avatars].slice(0, maxDisplay)
+    : [];
+  const avatarsToHide = Array.isArray(avatars)
+    ? [...avatars].slice(maxDisplay)
+    : [];
 
   return (
     <div className={styles.wrapper}>
