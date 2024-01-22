@@ -78,7 +78,7 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
         header: "Author",
         cell: (info) => (
           <AvatarGroup
-            avatars={info.getValue().map((author) => author?.avatar)}
+            avatars={info.getValue()?.map((author) => author?.avatar)}
             maxDisplay={3}
           />
         ),
