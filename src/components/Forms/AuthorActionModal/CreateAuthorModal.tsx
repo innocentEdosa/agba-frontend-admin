@@ -60,7 +60,7 @@ const schema = yup.object().shape({
   details: yup.string().nullable(),
   work_history: yup.string().required(),
   rating: yup.number(),
-  avater: yup.mixed(),
+  avatar: yup.mixed(),
   email: yup.string().email().required(),
   phone_number: yup.string(),
   linkedIn: yup.string().optional(),

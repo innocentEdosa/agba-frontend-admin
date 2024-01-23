@@ -72,11 +72,13 @@ const EditCourseModal = ({ show, onDismiss, initialData }: EditModalProps) => {
 const schema = yup.object().shape({
   title: yup.string(),
   description: yup.string(),
-  short_description: yup.string(),
+  short_description: yup
+    .string()
+    .max(300, "Short description should be less than 300 characters"),
   rating: yup.number().optional(),
   author_id: yup.string().optional(),
   category_id: yup.string(),
-  sub_category_id: yup.string(),
+  sub_category_id: yup.string().nullable().optional(),
   is_featured: yup.boolean(),
   is_coming: yup.boolean(),
   price_value: yup.number().nullable(),

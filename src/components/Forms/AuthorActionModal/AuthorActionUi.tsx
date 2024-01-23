@@ -120,7 +120,8 @@ const AuthorActionUI = <T extends "Edit" | "Create" = "Create">({
         <Button>
           {!isPending ? (
             <>
-              <AddIcon /> <span>{type} Author</span>
+              <AddIcon />{" "}
+              <span>{type === "Edit" ? "Update" : type} Author</span>
             </>
           ) : (
             <LoaderIcon />

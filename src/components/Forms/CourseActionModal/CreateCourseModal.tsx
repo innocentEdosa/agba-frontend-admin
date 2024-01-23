@@ -57,13 +57,14 @@ const schema = yup.object().shape({
     .required("Please provide a description for the coure"),
   short_description: yup
     .string()
+    .max(300, "Short description should be less than 300 characters")
     .required("Please provide a short description for the course"),
   rating: yup.number().optional(),
   author_id: yup.string().required("Please select an author for this course"),
   category_id: yup
     .string()
     .required("Please provide a category for this course"),
-  sub_category_id: yup.string().optional(),
+  sub_category_id: yup.string().optional().nullable(),
   is_featured: yup.boolean(),
   is_coming: yup.boolean(),
   price_value: yup.number().nullable(),
