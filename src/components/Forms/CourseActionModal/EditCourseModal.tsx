@@ -81,6 +81,7 @@ const schema = yup.object().shape({
   is_coming: yup.boolean(),
   price_value: yup.number().nullable(),
   price_type: yup.string().oneOf(Object.values(PriceType)).nullable(),
+  discount_price: yup.number().nullable(),
   avatar: yup.mixed(),
 });
 

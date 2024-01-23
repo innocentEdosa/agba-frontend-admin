@@ -139,6 +139,13 @@ const CourseActionUI = <T extends "Edit" | "Create">({
           {...register("price_value")}
           error={errors?.price_value?.message}
         />
+        <TextField
+          label="Discount Price"
+          placeholder="6,500"
+          direction={direction}
+          {...register("discount_price")}
+          error={errors?.discount_price?.message}
+        />
         <Select
           label="Category"
           options={categoriesOption}
