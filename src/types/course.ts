@@ -19,6 +19,7 @@ export type Course = {
   status?: string;
   price_value?: number | null;
   price_type?: PriceType | null;
+  discount_price?: number | null;
   is_featured: boolean;
   is_coming: boolean;
   created_at: string;
@@ -38,6 +39,7 @@ export type CreateCourseType = {
   is_coming?: boolean;
   price_value?: number | null;
   price_type?: PriceType | null;
+  discount_price?: number | null;
   avatar?: any;
 };
 

@@ -89,6 +89,12 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
           <span>{formatCurrency(info.getValue()!) || "N/A"}</span>
         ),
       }),
+      columnHelper.accessor("discount_price", {
+        header: "Discount Price",
+        cell: (info) => (
+          <span>{formatCurrency(info.getValue()!) || "none"}</span>
+        ),
+      }),
       columnHelper.accessor("category", {
         header: "Category",
         cell: (info) => <span>{info?.getValue()?.title || "No category"}</span>,
