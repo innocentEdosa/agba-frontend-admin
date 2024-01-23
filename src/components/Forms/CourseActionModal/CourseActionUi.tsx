@@ -199,7 +199,8 @@ const CourseActionUI = <T extends "Edit" | "Create">({
         <Button>
           {!isPending ? (
             <>
-              <AddIcon /> <span>{type} Course</span>
+              <AddIcon />{" "}
+              <span>{type === "Edit" ? "Update" : type} Course</span>
             </>
           ) : (
             <LoaderIcon />

@@ -34,7 +34,7 @@ export type CreateCourseType = {
   rating?: number;
   author_id: string;
   category_id: string;
-  sub_category_id?: string;
+  sub_category_id?: string | null;
   is_featured?: boolean;
   is_coming?: boolean;
   price_value?: number | null;

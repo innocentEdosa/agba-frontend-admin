@@ -31,13 +31,26 @@ const EditAuthorModal = ({
   });
 
   const handleEditAuthor = useCallback(
-    (params: UpdateAuthorType) => {
+    (data: FieldValues) => {
+      if (data.email === initialData?.email) {
+        delete data.email;
+      }
+      const [first_name, ...rest] = data.fullName.split(" ");
+      const params = {
+        ...data,
+        first_name,
+        last_name: rest.join("  "),
+      } as UpdateAuthorType;
       mutate(
         { id: initialData?.id!, ...params },
         {
           onSuccess: () => {
             toast.success("Author updated successfully");
             onDismiss();
+          },
+          onError: (err) => {
+            console.log(err);
+            toast.error(JSON.stringify(err));
           },
         }
       );
@@ -50,7 +63,7 @@ const EditAuthorModal = ({
       reset({
         ...initialData,
         fullName: [initialData.first_name, initialData.last_name].join(" "),
-        avater: undefined,
+        avatar: null,
       });
     }
   }, [initialData]);
@@ -80,7 +93,7 @@ const schema = yup.object().shape({
   details: yup.string().nullable(),
   work_history: yup.string(),
   rating: yup.number(),
-  avater: yup.mixed(),
+  avatar: yup.mixed().nullable(),
   email: yup.string().email(),
   linkedIn: yup.string().optional(),
   website: yup.string().optional(),
