@@ -21,10 +21,7 @@ import {
   EditCategoryModal,
   Pagination,
 } from "@/components";
-import {
-  ButtonVariant,
-  CategoryType,
-} from "@/types";
+import { ButtonVariant, CategoryType } from "@/types";
 import { useGetCourses } from "@/api/hooks/queries/course";
 import { filterOptions } from "@/constants/filterMappers";
 import { CourseStatus } from "@/constants/course";
@@ -121,15 +118,17 @@ const CourseList = () => {
       <section className={styles.courseListWrapper}>
         <CourseListTable courses={courses} />
         <div className="container">
-          <Pagination
-            totalCount={totalPages}
-            pageSize={paginationState.limit}
-            currentPage={paginationState.page}
-            siblingCount={2}
-            onPageChange={(page) => {
-              setPaginationState((prev) => ({ ...prev, page }));
-            }}
-          />
+          {!!courses.length && (
+            <Pagination
+              totalCount={totalPages}
+              pageSize={paginationState.limit}
+              currentPage={paginationState.page}
+              siblingCount={2}
+              onPageChange={(page) => {
+                setPaginationState((prev) => ({ ...prev, page }));
+              }}
+            />
+          )}
         </div>
       </section>
 

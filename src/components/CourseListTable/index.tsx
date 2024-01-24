@@ -22,6 +22,7 @@ import {
   useDeleteCourse,
 } from "@/api/hooks/mutations/courses";
 import { toast } from "react-toastify";
+import Description from "../DescriptiveText";
 
 const columnHelper = createColumnHelper<Course>();
 const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
@@ -72,7 +73,7 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
       }),
       columnHelper.accessor("description", {
         header: "Description",
-        cell: (info) => <div>{info.getValue()}</div>,
+        cell: (info) => <Description text={info.getValue()} />,
       }),
       columnHelper.accessor("authors", {
         header: "Author",

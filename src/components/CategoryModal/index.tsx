@@ -26,7 +26,6 @@ import qs from "qs";
 import { CategoryStatus } from "@/constants/category";
 import { filterOptions } from "@/constants/filterMappers";
 
-
 const initialFilter = [
   {
     key: "status",
@@ -48,8 +47,8 @@ const CategoryModal = ({
   showCreateCategory,
   onEditCategory,
 }: CategoryModalProps) => {
-  const [referenceElement, setReferenceElement] = React.useState(null);
-  const [popperElement, setPopperElement] = React.useState(null);
+  const [referenceElement, setReferenceElement] = React.useState<HTMLDivElement | null>(null)
+  const [popperElement, setPopperElement] = React.useState<HTMLDivElement | null>(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showDeleteModal, setShowdeleteModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -240,7 +239,6 @@ const CategoryModal = ({
                 className={style.category}
                 key={category.id}
                 data-selected={showSubCategories === category.id}
-                // @ts-ignore
                 ref={
                   showSubCategories === category?.id
                     ? setReferenceElement
@@ -275,7 +273,6 @@ const CategoryModal = ({
               className={style.subCategoriesModal}
               style={styles.popper}
               {...attributes.popper}
-              // @ts-ignore
               ref={setPopperElement}>
               <div className={style.titleWrapper}>
                 <h3>Sub-categories</h3>

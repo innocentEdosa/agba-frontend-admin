@@ -51,15 +51,17 @@ const AuthorList = () => {
       <section className={styles.authorListWrapper}>
         <AuthorListTable authorList={authorList} />
         <div className="container">
-          <Pagination
-            totalCount={totalPages}
-            pageSize={paginationState.limit}
-            currentPage={paginationState.page}
-            siblingCount={2}
-            onPageChange={(page) => {
-              setPaginationState((prev) => ({ ...prev, page }));
-            }}
-          />
+          {!!authorList.length && (
+            <Pagination
+              totalCount={totalPages}
+              pageSize={paginationState.limit}
+              currentPage={paginationState.page}
+              siblingCount={2}
+              onPageChange={(page) => {
+                setPaginationState((prev) => ({ ...prev, page }));
+              }}
+            />
+          )}
         </div>
       </section>
       <CreateAuthorModal
