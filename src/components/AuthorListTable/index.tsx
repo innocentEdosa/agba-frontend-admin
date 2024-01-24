@@ -20,6 +20,7 @@ import {
   useDeleteAuthor,
 } from "@/api/hooks/mutations/author";
 import { toast } from "react-toastify";
+import Description from "../DescriptiveText";
 
 export type AuthorListTableProps = {
   authorList: Author[];
@@ -81,7 +82,10 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
       columnHelper.accessor("details", {
         header: "Short Bio",
         cell: (info) => (
-          <span className={styles.bio}>{info.getValue() ?? "No Bio yet"}</span>
+          <Description
+            text={info.getValue() ?? "No Bio yet"}
+            maxWordCount={20}
+          />
         ),
       }),
       columnHelper.accessor("work_history", {
