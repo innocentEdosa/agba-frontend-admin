@@ -28,10 +28,13 @@ const ImageInput = ({
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFile(acceptedFiles[0]);
-    onChange(acceptedFiles[0]);
-  }, [onChange]);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setFile(acceptedFiles[0]);
+      onChange(acceptedFiles[0]);
+    },
+    [onChange]
+  );
 
   const { getRootProps, getInputProps, isDragActive, inputRef, acceptedFiles } =
     useDropzone({
@@ -48,7 +51,7 @@ const ImageInput = ({
     }
 
     return () => URL.revokeObjectURL(preview);
-  }, [file, preview]);
+  }, [file]);
 
   return (
     <div className={style.wrapper} data-direction={direction}>

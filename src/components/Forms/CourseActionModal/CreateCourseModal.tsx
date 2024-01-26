@@ -27,13 +27,14 @@ const CreateCourseModal = ({ show, onDismiss }: CreateCourseModalProps) => {
   });
 
   const handleCreateCourse = useCallback((data: FieldValues) => {
-    mutate(data as CreateCourseType, {
-      onSuccess() {
-        toast.success("Course Created Successfully");
-        reset();
-        onDismiss();
-      },
-    });
+    console.log(data);
+    // mutate(data as CreateCourseType, {
+    //   onSuccess() {
+    //     toast.success("Course Created Successfully");
+    //     reset();
+    //     onDismiss();
+    //   },
+    // });
   }, []);
 
   return (

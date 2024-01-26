@@ -1,0 +1,100 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.wrapper > * + * {
+  margin-left: 2rem;
+}
+
+.wrapper > div {
+  width: 100% !important;
+}
+
+.wrapper[data-direction="vertical"] {
+  flex-direction: column;
+}
+
+.wrapper[data-direction="vertical"] > * + * {
+  margin-left: 0;
+  margin-top: 0.5rem;
+}
+
+.label {
+  color: var(--neutrals-600, #84868a);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem; /* 142.857% */
+  min-width: 10rem;
+}
+
+.ckEditorWrapper > *:global(.ck .ck-editor__main > .ck-editor__editable),
+.ckEditorWrapper
+  > *:global(
+    .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar
+  ) {
+  background: var(--neutrals-100, #fafbfc) !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+  color: var(--neutrals-800, #2f3033) !important;
+  border-color: transparent !important;
+}
+
+.ckEditorWrapper {
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+  color: var(--neutrals-800, #2f3033) !important;
+  width: 100%;
+  border: 1px solid var(--neutrals_300, #e4e5eb);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+}
+
+.ckEditorWrapper > *:global(.ck .ck-editor__main > .ck-editor__editable) {
+  border-top-color: var(--neutrals_300, #e4e5eb) !important;
+  min-height: 10rem !important;
+}
+
+/* .ckEditorWrapper > * {
+  min-height: 100% !important;
+} */
+
+.ckEditorWrapper[data-focused="true"] {
+  border-color: var(--brand_primary_default, #0039e9);
+}
+
+.ckEditorWrapper[data-focused="true"]
+  > *:global(.ck .ck-editor__main > .ck-editor__editable) {
+  border-top-color: var(--brand_primary_default, #0039e9) !important;
+}
+
+.ckEditorWrapper[data-error="true"] {
+  border-color: var(--interface_red_dark, #c44835) !important;
+}
+
+.ckEditorWrapper[data-error="true"]
+  > *:global(.ck .ck-editor__main > .ck-editor__editable) {
+  border-top-color: var(--interface_red_dark, #c44835) !important;
+}
+
+.wrapper > *:global(.ck .ck-editor__main > .ck-editor__editable:focus) {
+  border-color: transparent !important;
+}
+
+.wrapper > *:global(.ck .ck-focused) {
+  border-color: var(--brand-primary-default, #0039e9) !important;
+  border-bottom-color: transparent !important;
+}
+
+.error {
+  display: inline-block;
+  color: var(--interface-red-dark, #c44835);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper > div {
+    width: calc(100% - 12rem) !important;
+  }
+}
