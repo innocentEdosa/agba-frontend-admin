@@ -71,9 +71,11 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
           </Link>
         ),
       }),
-      columnHelper.accessor("description", {
+      columnHelper.accessor("short_description", {
         header: "Description",
-        cell: (info) => <Description text={info.getValue()} />,
+        cell: (info) => (
+          <Description text={info?.getValue() || "No short description"} />
+        ),
       }),
       columnHelper.accessor("authors", {
         header: "Author",
