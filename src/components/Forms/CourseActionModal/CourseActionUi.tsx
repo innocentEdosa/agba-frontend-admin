@@ -101,21 +101,13 @@ const CourseActionUI = <T extends "Edit" | "Create">({
           direction={direction}
         />
         <RichTextEditor
-          label="Description"
+          label="Main Description"
           onChange={() => {}}
           direction={direction}
           name="description"
           // @ts-ignore
           control={control}
         />
-        {/* <Textarea
-          label="Main Description"
-          placeholder="Description about the course"
-          rows={4}
-          direction={direction}
-          {...register("description")}
-          error={errors?.description?.message}
-        /> */}
         <Textarea
           label="Short Description"
           placeholder="Short description about the course"

@@ -1,77 +1,12 @@
 "use client";
 
-// components/custom-editor.js
+import { Direction } from "@/types";
 
 import React from "react";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import Editor from "ckeditor5-custom-build";
-import { Direction } from "@/types";
 import { Control, Controller, FieldValues } from "react-hook-form";
-import styles from "./rich-text-editor.module.css";
+import dynamic from "next/dynamic";
 
-type EditorProps = {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  direction?: Direction;
-  error?: string;
-};
-
-const editorConfiguration = {
-  toolbar: [
-    "heading",
-    "|",
-    "bold",
-    "italic",
-    "link",
-    "bulletedList",
-    "numberedList",
-    "|",
-    "outdent",
-    "indent",
-    "|",
-    "imageUpload",
-    "blockQuote",
-    "insertTable",
-    "mediaEmbed",
-    "undo",
-    "redo",
-  ],
-};
-
-function CustomEditor({
-  value,
-  onChange,
-  label,
-  direction,
-  error,
-}: EditorProps) {
-  const [isFocused, setIsFocused] = React.useState(false);
-  return (
-    <div className={styles.wrapper} data-direction={direction}>
-      {label && <span className={styles.label}>{label}</span>}
-      <div>
-        <div
-          className={styles.ckEditorWrapper}
-          data-focused={isFocused}
-          data-error={!!error}>
-          <CKEditor
-            editor={Editor}
-            config={editorConfiguration}
-            data={value}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              onChange(data);
-            }}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-        </div>
-        {error && <span className={styles.error}>{error}</span>}
-      </div>
-    </div>
-  );
-}
+const CustomEditor = dynamic(() => import("./CustomEditor"), { ssr: false });
 
 type RichTextEditorProps = {
   label: string;
