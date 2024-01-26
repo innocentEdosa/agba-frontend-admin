@@ -56,7 +56,7 @@ const VideoUpload = ({
     return () => {
       URL.revokeObjectURL(preview);
     };
-  }, [file, preview]);
+  }, [file]);
 
   useEffect(() => {
     if (preview) {

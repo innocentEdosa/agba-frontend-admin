@@ -16,6 +16,7 @@ import { useGetCategories } from "@/api/hooks/queries/categories";
 import { useResponsive } from "@/hooks";
 import { useGetAuthors } from "@/api/hooks/queries/authors";
 import { PriceType } from "@/constants/course";
+import RichTextEditor from "@/atoms/Inputs/RichTextEditor";
 
 export type CourseActionUiProps<T extends "Edit" | "Create"> = {
   type: T;
@@ -99,14 +100,22 @@ const CourseActionUI = <T extends "Edit" | "Create">({
           control={control}
           direction={direction}
         />
-        <Textarea
+        <RichTextEditor
+          label="Description"
+          onChange={() => {}}
+          direction={direction}
+          name="description"
+          // @ts-ignore
+          control={control}
+        />
+        {/* <Textarea
           label="Main Description"
           placeholder="Description about the course"
           rows={4}
           direction={direction}
           {...register("description")}
           error={errors?.description?.message}
-        />
+        /> */}
         <Textarea
           label="Short Description"
           placeholder="Short description about the course"
