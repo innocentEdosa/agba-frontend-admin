@@ -17,11 +17,8 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         protectedRoutes={[
           "/",
           "/courses",
-          "/courses/.*",
           "/authors",
-          "/authors/.*",
-          "/learners*",
-          // "/learners/.*",
+          "/learners",
         ]}>
         <ResponsiveContextWrapper>
           <ToastContainer
