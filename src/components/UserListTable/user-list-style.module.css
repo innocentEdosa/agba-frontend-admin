@@ -1,0 +1,14 @@
+.tableRowBoldText {
+  font-weight: 600;
+  color: var(--neutrals-800, #2f3033);
+}
+
+.status,
+.verified_status {
+  color: var(--interface-red-dark, #c44835);
+}
+
+.verified_status[data-status="verified"],
+.status[data-status="active"] {
+  color: var(--interface-green-dark, #438c65);
+}

@@ -1,0 +1,83 @@
+.wrapper {
+  padding: 2.5rem 0rem;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.topSection > * + * {
+  margin-top: 1rem;
+}
+
+.actionBtns button {
+  padding: 0.6rem !important;
+  width: 100% !important;
+}
+
+.actionBtns > * + * {
+  margin-top: 1rem;
+}
+
+.dropdownToggler {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.dropdownToggler:focus,
+.dropdownToggler:hover {
+  background-color: var(--neutrals_200);
+}
+
+.dropdownItem {
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.heading {
+  color: var(--neutrals-800, #2f3033);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2rem; /* 114.286% */
+  letter-spacing: -0.028rem;
+}
+
+.courseListWrapper {
+  padding: 1rem 0;
+}
+
+.courseListWrapper > * + * {
+  margin-top: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .topSection {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .topSection > * + * {
+    margin-top: 0;
+    margin-left: 1rem;
+  }
+  .actionBtns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .actionBtns > * {
+    /* display: flex !important;
+    align-items: center; */
+    width: 100%;
+  }
+
+  .actionBtns > * + * {
+    margin-top: 0;
+    margin-left: 1rem;
+  }
+}

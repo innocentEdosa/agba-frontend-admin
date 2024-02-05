@@ -1,7 +1,6 @@
 "use client";
 
 import lsKeys from "@/constants/lsKeys";
-import useAuth from "@/hooks/useAuth";
 import checkIsTokenExpired from "@/utils/checkIsTokenExpired";
 import { matchURL } from "@/utils/matchUrl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

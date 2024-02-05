@@ -15,11 +15,13 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <PrivatRoute
         protectedRoutes={[
-          "/dashboard",
+          "/",
           "/courses",
           "/courses/.*",
           "/authors",
           "/authors/.*",
+          "/learners*",
+          // "/learners/.*",
         ]}>
         <ResponsiveContextWrapper>
           <ToastContainer

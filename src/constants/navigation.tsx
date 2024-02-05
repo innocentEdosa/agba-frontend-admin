@@ -12,7 +12,7 @@ const prefix = "";
 export const navigation = [
   {
     name: "Dashboard",
-    path: `${prefix}/dashboard`,
+    path: `${prefix}/`,
     icon: <Element3Icon />,
   },
   {

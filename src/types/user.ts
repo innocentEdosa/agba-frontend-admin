@@ -4,6 +4,7 @@ export type UserType = {
   firstName: string;
   lastName: string;
   phone_number: string | null;
+  whatsapp_number: string | null;
   account_status: string;
   role: string;
   verified_status: string;
