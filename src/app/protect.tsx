@@ -2,7 +2,7 @@
 
 import lsKeys from "@/constants/lsKeys";
 import checkIsTokenExpired from "@/utils/checkIsTokenExpired";
-import { matchURL } from "@/utils/matchUrl";
+import { isRoutePrivate } from "@/utils/isRoutePrivate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import SecureLS from "secure-ls";
@@ -15,7 +15,7 @@ interface props {
 const PrivatRoute = ({ protectedRoutes, children }: props) => {
   const router = useRouter();
   const pathname = usePathname();
-  const pathIsProtected = matchURL(pathname!, protectedRoutes!);
+  const pathIsProtected = isRoutePrivate(pathname!, protectedRoutes!);
 
   const [isProcessing, setIsProcessing] = useState(true);
   useEffect(() => {
