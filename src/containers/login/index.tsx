@@ -32,7 +32,7 @@ const Login = () => {
           progress: 0.5,
         });
         handleLoginsuccess(res);
-        router.push("/dashboard");
+        router.push("/");
       },
     });
   };

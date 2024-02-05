@@ -16,8 +16,7 @@
 }
 
 .linkBtn[data-active="true"],
-.linkBtn:hover,
-.linkBtn:focus {
+.linkBtn:hover {
   background: var(--brand-primary-default, #0039e9);
   color: var(--brand-primary-light, #e8edfc);
 }

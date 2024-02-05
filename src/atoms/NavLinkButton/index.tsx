@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import style from "./navLinkButton.module.css";
+import { isRouteActive } from "@/utils/isRouteActive";
 
 export type LinkButtonProps = {
   href: string;
@@ -18,7 +19,7 @@ const NavLinkButton = ({
   ...attributes
 }: LinkButtonProps) => {
   const pathName = usePathname();
-  const isActive = pathName !== "/" && pathName?.toString().includes(href);
+  const isActive = isRouteActive(href, pathName || "");
 
   return (
     <Link

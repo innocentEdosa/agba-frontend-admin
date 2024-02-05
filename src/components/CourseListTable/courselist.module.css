@@ -41,6 +41,6 @@
   color: var(--interface-red-dark, #c44835);
 }
 
-.status[data-status="active"] {
+.status[data-status="published"] {
   color: var(--interface-green-dark, #438c65);
 }

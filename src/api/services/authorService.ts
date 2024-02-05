@@ -4,6 +4,7 @@ import {
   CREATE_AUTHOR,
   DELETE_AUTHOR,
   GET_AUTHORS,
+  GET_AUTHORS_COUNT,
   UPDATE_AUTHOR,
 } from "../constants/endpoints";
 import {
@@ -31,6 +32,10 @@ export const getAuthors = ({ limit = 20, page = 1, ...params }) => {
       ...params,
     },
   });
+};
+
+export const getAuthorsCount = () => {
+  return http.get<{ count: number }>(GET_AUTHORS_COUNT);
 };
 
 export const updateAuthor = (data: UpdateAuthorParams) => {

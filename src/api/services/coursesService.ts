@@ -11,7 +11,7 @@ import {
   CREATE_COURSE,
   DELETE_COURSE,
   GET_COURSE_BY_SLUG,
-  GET_cOURSES,
+  GET_COURSES,
   UPDATE_COURSE,
 } from "@/api/constants/endpoints";
 
@@ -24,7 +24,7 @@ export const createCourse = (params: CreateCourseType) => {
 };
 
 export const getCourses = (params: GetRequestParamsType) => {
-  return http.get<GetRequestParamsType, CourseResponseType>(GET_cOURSES, {
+  return http.get<GetRequestParamsType, CourseResponseType>(GET_COURSES, {
     params: { ...params },
   });
 };
