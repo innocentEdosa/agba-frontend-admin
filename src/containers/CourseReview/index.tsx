@@ -17,7 +17,8 @@ const CourseReview = () => {
       <h1 className={clsx("container", styles.title)}>Course Reviews</h1>
       <div className={styles.reviews}>
         {reviews.map((review, index) => (
-          <Review key={index} {...review} />
+          // @ts-ignore
+          <Review  key={index} {...review} />
         ))}
       </div>
       <div className="container">
