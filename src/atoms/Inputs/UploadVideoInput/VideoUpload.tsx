@@ -89,7 +89,7 @@ const VideoUpload = ({
               <button type="button">Click to upload</button>{" "}
               <span>or drag and drop</span>
             </div>
-            <span className={style.info}>PNG, JPG (max 400x80px)</span>
+            <span className={style.info}>Mp4, mov, avi, mkv</span>
           </div>
         </div>
         {file && (

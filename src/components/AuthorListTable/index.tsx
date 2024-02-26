@@ -24,10 +24,14 @@ import Description from "../DescriptiveText";
 
 export type AuthorListTableProps = {
   authorList: Author[];
+  isLoading?: boolean;
 };
 
 const columnHelper = createColumnHelper<Author>();
-const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
+const AuthorListTable = ({
+  authorList = [],
+  isLoading,
+}: AuthorListTableProps) => {
   const [authorToEdit, setAuthorToEdit] = useState<Author | null>(null);
   const [authorToDeleteId, setAuthorToDeleteId] = useState<string | null>(null);
   const [authorToArchiveId, setAuthorToArchiveId] = useState<string | null>(
@@ -188,6 +192,7 @@ const AuthorListTable = ({ authorList = [] }: AuthorListTableProps) => {
       <Table
         defaultData={authorList}
         defaultColumns={columns}
+        loading={isLoading}
         // onRowClick={handleRowClick}
       />
       <ConfirmationModal

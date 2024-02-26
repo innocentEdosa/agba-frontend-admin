@@ -2,31 +2,42 @@ import React from "react";
 import OverviewCard from "./OverviewCard";
 import styles from "./dashboardOverview.module.css";
 import clsx from "clsx";
+import Skeleton from "@/atoms/Skeleton";
+import { useGetUsersCount } from "@/api/hooks/queries/user";
+import { useGetAuthorsCount } from "@/api/hooks/queries/authors";
 
-type OverviewProps = {
-  usersCount: number;
-  authorsCount: number;
-  dailyVisitors: number;
-  onlineLearners: number;
-};
+const DashboardOverview = () => {
+  const { data: usersCount, isLoading: isUsersCountLoading } =
+    useGetUsersCount();
+  const { data: authorsCount, isLoading: isAuthorsCountLoading } =
+    useGetAuthorsCount();
 
-const DashboardOverview = ({
-  usersCount = 0,
-  authorsCount = 0,
-  dailyVisitors = 0,
-  onlineLearners = 0,
-}: OverviewProps) => {
   return (
     <div className={clsx("container", styles.overview)}>
       <h2 className="heading_sm4">Overview</h2>
       <div className={styles.overviewCards}>
-        <OverviewCard title="Total Learners" value={usersCount} primary />
-        <OverviewCard title="Total Authorss" value={authorsCount} />
-        <OverviewCard title="Daily Visitors" value={dailyVisitors} />
-        <OverviewCard title="Online Learners" value={onlineLearners} />
+        {isUsersCountLoading ? (
+          <CardSkeleton />
+        ) : (
+          <OverviewCard title="Total Users" value={usersCount?.count || 0} />
+        )}
+        {isAuthorsCountLoading ? (
+          <CardSkeleton />
+        ) : (
+          <OverviewCard
+            title="Total Authors"
+            value={authorsCount?.count || 0}
+          />
+        )}
+        <OverviewCard title="Daily Visitors" value={0} />
+        <OverviewCard title="Online Learners" value={0} />
       </div>
     </div>
   );
 };
 
 export default DashboardOverview;
+
+const CardSkeleton = () => (
+  <Skeleton style={{ width: "100%", height: "11rem" }} />
+);

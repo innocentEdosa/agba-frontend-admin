@@ -1,7 +1,12 @@
 import DashboardLayout from "@/layout";
+import ProtectRoute from "./protect";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <DashboardLayout>{children}</DashboardLayout>;
+  return (
+    <ProtectRoute>
+      <DashboardLayout>{children}</DashboardLayout>
+    </ProtectRoute>
+  );
 };
 
 export default Layout;

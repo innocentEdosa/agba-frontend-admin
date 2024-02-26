@@ -70,6 +70,7 @@ const VideoListItem = ({ video }: VideoListItemProps) => {
     <div>
       <article className={styles.wrapper}>
         <VideoPlayer src={video.url} />
+
         <div className={clsx(styles.btnGroup)}>
           <Button
             onClick={() => setShowDeleteVideoModal(true)}
@@ -93,6 +94,7 @@ const VideoListItem = ({ video }: VideoListItemProps) => {
             <span>Edit</span>
           </Button>
         </div>
+
         <div className={styles.details}>
           <div>
             <span className={styles.heading}>Title</span>
@@ -114,16 +116,17 @@ const VideoListItem = ({ video }: VideoListItemProps) => {
               {moment(video.created_at).format("DD/MM/YYYY")}
             </p>
           </div>
-          <div>
+          {/* <div>
             <span className={styles.heading}>Author</span>
             <p className={styles.text}>Wisdom chuks</p>
-          </div>
+          </div> */}
           <div>
             <span className={styles.heading}>Position</span>
             <p className={styles.text}>{video.position}</p>
           </div>
         </div>
-        <div className={styles.reviewSection}>
+
+        {/* <div className={styles.reviewSection}>
           <span className={styles.reviewSectionTitle}>Video Reviews</span>
           <div className={styles.reviewsWrapper}>
             <div className={styles.reviews}>
@@ -145,7 +148,7 @@ const VideoListItem = ({ video }: VideoListItemProps) => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
       </article>
       <EditVideoModal
         show={showEditVideoModal}

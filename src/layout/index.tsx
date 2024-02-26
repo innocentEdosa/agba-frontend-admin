@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Navigation from "./Navigation";
 import HeaderNav from "./HeaderNav";
 import styles from "./layout.module.css";

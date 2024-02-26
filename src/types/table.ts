@@ -10,4 +10,5 @@ export type TablePropsType<T extends Record<string, any>> = {
   canSort?: boolean;
   canExpand?: boolean;
   onSelectRowHandler?: (row: T[]) => void;
+  loading?: boolean;
 };

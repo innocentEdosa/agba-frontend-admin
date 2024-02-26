@@ -25,7 +25,13 @@ import { toast } from "react-toastify";
 import Description from "../DescriptiveText";
 
 const columnHelper = createColumnHelper<Course>();
-const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
+const CourseListTable = ({
+  courses = [],
+  isLoading,
+}: {
+  courses: Course[];
+  isLoading?: boolean;
+}) => {
   const [courseToEdit, setCourseToEdit] = useState<Course | null>(null);
   const [courseToDeleteId, setCourseToDeleteId] = useState<string | null>(null);
   const [courseToArchiveId, setCourseToArchiveId] = useState<string | null>(
@@ -176,6 +182,7 @@ const CourseListTable = ({ courses = [] }: { courses: Course[] }) => {
       <Table
         defaultData={courses}
         defaultColumns={columns}
+        loading={isLoading}
         // onRowClick={handleRowClick}
       />
       <ConfirmationModal

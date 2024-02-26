@@ -5,6 +5,7 @@ import { useGetCourseVideos } from "@/api/hooks/queries/video";
 import { filterOptions } from "@/constants/filterMappers";
 import { VideoStaus } from "@/constants/video";
 import qs from "qs";
+import GeneralLoader from "@/components/GeneralLoader/GeneralLoader";
 
 type CourseVideoType = {
   courseId?: string;
@@ -33,6 +34,11 @@ const CourseVideos = ({ courseId }: CourseVideoType) => {
     if (!courseVideoResponse) return [];
     return courseVideoResponse.data;
   }, [courseVideoResponse]);
+
+  if (isLoading) {
+    return <GeneralLoader style={{ height: "20rem" }} />;
+  }
+
   return (
     <div className={styles.wrapper}>
       {!!videos.length &&

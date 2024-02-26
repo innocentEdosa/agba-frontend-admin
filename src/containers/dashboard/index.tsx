@@ -27,8 +27,7 @@ const DashboardContainer = () => {
     page: 1,
     filter: qs.stringify([...initialFilter]),
   });
-  const { data: usersCount } = useGetUsersCount();
-  const { data: authorsCount } = useGetAuthorsCount();
+
   const courses = React.useMemo(() => {
     if (!coursesData) return [];
     return coursesData.data;
@@ -36,12 +35,7 @@ const DashboardContainer = () => {
 
   return (
     <div className={styles.wrapper}>
-      <DashboardOverview
-        usersCount={usersCount?.count || 0}
-        authorsCount={authorsCount?.count || 0}
-        dailyVisitors={0}
-        onlineLearners={0}
-      />
+      <DashboardOverview />
       <div className={styles.courseListWrapper}>
         <div className={clsx("container", styles.headingWrapper)}>
           <h2 className="heading_sm4">Course List</h2>
@@ -49,7 +43,7 @@ const DashboardContainer = () => {
             View All
           </Link>
         </div>
-        <CourseListTable courses={courses} />
+        <CourseListTable courses={courses} isLoading={isLoading} />
       </div>
     </div>
   );

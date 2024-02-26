@@ -20,6 +20,7 @@ const CourseDescription = () => {
   const { data: course, isLoading } = useGetCourseBySlug(
     params?.slug as string
   );
+  
   const tabs = [
     {
       title: "Course Details",

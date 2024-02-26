@@ -7,11 +7,12 @@ import moment from "moment";
 
 export type AuthorListTableProps = {
   userList: UserType[];
+  isLoading?: boolean;
   ref?: React.RefObject<HTMLTableElement>;
 };
 
 const columnHelper = createColumnHelper<UserType>();
-const UserListTable = ({ userList = [] }: AuthorListTableProps) => {
+const UserListTable = ({ userList = [], isLoading }: AuthorListTableProps) => {
   const columns = useMemo(() => {
     return [
       columnHelper.display({
@@ -69,6 +70,7 @@ const UserListTable = ({ userList = [] }: AuthorListTableProps) => {
       <Table
         defaultData={userList}
         defaultColumns={columns}
+        loading={isLoading}
         // onRowClick={handleRowClick}
       />
     </div>

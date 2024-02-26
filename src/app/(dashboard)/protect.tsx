@@ -1,9 +1,9 @@
 "use client";
 
+import GeneralLoader from "@/components/GeneralLoader/GeneralLoader";
 import lsKeys from "@/constants/lsKeys";
 import checkIsTokenExpired from "@/utils/checkIsTokenExpired";
-import { isRoutePrivate } from "@/utils/isRoutePrivate";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import SecureLS from "secure-ls";
 
@@ -12,28 +12,23 @@ interface props {
   children: React.ReactNode;
 }
 
-const PrivatRoute = ({ protectedRoutes, children }: props) => {
+const ProtectRoute = ({ children }: props) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const pathIsProtected = isRoutePrivate(pathname!, protectedRoutes!);
 
   const [isProcessing, setIsProcessing] = useState(true);
   useEffect(() => {
     const ls = new SecureLS();
     let tokenParams = ls.get(lsKeys.auth);
-    if (
-      checkIsTokenExpired(tokenParams?.token?.expires_at) &&
-      pathIsProtected
-    ) {
+    if (checkIsTokenExpired(tokenParams?.token?.expires_at)) {
       router.replace("/login");
     } else {
       setIsProcessing(false);
     }
-  }, [pathIsProtected, router]);
+  }, [router]);
 
-  if (isProcessing && pathIsProtected) return "loading";
+  if (isProcessing) return <GeneralLoader />;
 
   return <>{children}</>;
 };
 
-export default PrivatRoute;
+export default ProtectRoute;

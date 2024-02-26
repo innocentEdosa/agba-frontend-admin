@@ -2,6 +2,7 @@ import { PriceType } from "@/constants/course";
 import { Avatar } from "./shared";
 import { Author } from "./author";
 import { CategoryType } from "./category";
+import { ReviewType } from "./reviews";
 
 export type Course = {
   id: string;
@@ -25,6 +26,9 @@ export type Course = {
   created_at: string;
   updated_at: string;
   thumbnails: string[];
+  total_enrollments?: number;
+  featured_position?: number;
+  reviews?: ReviewType[];
 };
 
 export type CreateCourseType = {

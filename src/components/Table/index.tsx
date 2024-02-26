@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-table";
 import styles from "./table.module.css";
 import { TablePropsType } from "@/types";
+import GeneralLoader from "../GeneralLoader/GeneralLoader";
 
 const Table = <T extends Record<string, any>>({
   defaultColumns,
@@ -17,6 +18,7 @@ const Table = <T extends Record<string, any>>({
   enableRowSelection,
   onRowClick,
   canSort,
+  loading = false,
 }: TablePropsType<T>) => {
   const [data, setData] = useState<Row<T>[]>(
     () => [...defaultData] as unknown as Row<T>[]
@@ -63,6 +65,8 @@ const Table = <T extends Record<string, any>>({
     e?.stopPropagation();
     onRowClick?.(row);
   };
+
+  if (loading) return <GeneralLoader style={{ height: "20rem" }} />;
 
   return (
     <div className={styles.tableWrapper}>

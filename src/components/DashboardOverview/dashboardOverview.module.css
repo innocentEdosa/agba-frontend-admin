@@ -21,20 +21,14 @@
 
 .overviewCard {
   background: var(--neutrals-200, #f0f2f7);
-  padding: 3.1875rem 1rem 3.1875rem;
+  padding: 3.2rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   margin-bottom: 1rem;
-}
-
-.overviewCard:nth-child(odd) {
-  margin-right: 0.75rem;
-}
-
-.overview:nth-child(even) {
-  margin-left: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .overviewCardTitle {
@@ -70,10 +64,17 @@
 
 @media screen and (min-width: 768px) {
   .overviewCards {
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
-  .overviewCard:not(:last-child) {
-    margin-right: 1.5rem;
+  .overviewCards > * {
+    margin: 0 !important;
+    width: calc(100% - 1.125rem) !important;
+  }
+
+  .overviewCards > * + * {
+    margin-left: 1.5rem !important;
   }
 }

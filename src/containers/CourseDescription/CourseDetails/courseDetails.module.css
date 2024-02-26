@@ -1,24 +1,23 @@
 .section {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   border-bottom: 1px solid var(--neutrals-200, #f0f2f7);
-  padding: 1rem 2rem;
-}
-
-.titleSection {
-  align-items: center;
-}
-
-.section > *:first-child {
-  width: 12rem;
-}
-
-.section > *:nth-child(2) {
-  width: 34.25rem;
-}
-
-.titleSection > *:first-child {
   width: 100%;
+  padding: 1rem;
+}
+
+.section > * + * {
+  margin-top: 0.5rem;
+}
+
+.titleBtnGroupWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleBtnGroupWrapper > * + * {
+  margin-top: 0.5rem;
 }
 
 .titleWrapper {
@@ -73,8 +72,9 @@
 }
 
 .courseImage {
-  width: 20rem !important;
-  height: 10rem;
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
   object-fit: cover;
   border-radius: 0.2rem;
 }
@@ -110,26 +110,12 @@
   margin-left: 0.5rem;
 }
 
-.reviewsWrapper {
-  width: calc(100% - 12rem) !important;
-}
-
 .reviews {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
-.reviews > *:nth-child(even) {
-  margin-left: 1.75rem;
-}
-
-.reviews > *:nth-child(odd) {
-  margin-right: 1.75rem;
-}
-
-.reviews > *:nth-child(n + 3) {
-  margin-top: 3.5rem;
+.reviews > * + * {
+  margin-top: 1.5rem;
 }
 
 .link {
@@ -150,4 +136,53 @@
 
 .link a {
   color: inherit;
+}
+
+@media screen and (min-width: 768px) {
+  .section {
+    flex-direction: row;
+    width: 100%;
+    padding: 1rem 2.5rem;
+  }
+
+  .section > *:first-child {
+    width: 12rem;
+  }
+
+  .section > *:nth-child(2) {
+    width: calc(100% - 12rem);
+  }
+
+  .titleBtnGroupWrapper {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .section > * + *,
+  .titleBtnGroupWrapper > * + * {
+    margin-top: 0;
+  }
+
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2rem;
+    margin-top: 0;
+  }
+
+  .reviews > * + * {
+    margin-top: 0;
+  }
+
+  .reviews > *:nth-child(even) {
+    margin-left: 1.75rem;
+  }
+
+  .reviews > *:nth-child(odd) {
+    margin-right: 1.75rem;
+  }
+
+  .reviews > *:nth-child(n + 3) {
+    margin-top: 3.5rem;
+  }
 }

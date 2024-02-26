@@ -5,6 +5,11 @@
   gap: 0.75rem;
 }
 
+.courseTitleWrapper:hover p {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .tableRowBoldText {
   font-weight: 600;
   color: var(--neutrals-800, #2f3033);

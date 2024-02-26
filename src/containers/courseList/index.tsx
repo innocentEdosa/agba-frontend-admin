@@ -116,7 +116,7 @@ const CourseList = () => {
         </div>
       </header>
       <section className={styles.courseListWrapper}>
-        <CourseListTable courses={courses} />
+        <CourseListTable courses={courses} isLoading={isLoading} />
         <div className="container">
           {!!courses.length && (
             <Pagination

@@ -106,7 +106,7 @@ const UserList = () => {
         {/* <div className={styles.actionBtnsDesktop}></div> */}
       </header>
       <section ref={tableWrapperRef} className={styles.courseListWrapper}>
-        <UserListTable userList={users} />
+        <UserListTable userList={users} isLoading={isLoading} />
         <div className="container">
           {!!users?.length && (
             <Pagination

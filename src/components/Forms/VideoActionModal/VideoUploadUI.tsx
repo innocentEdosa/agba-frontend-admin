@@ -47,7 +47,6 @@ const VideoUploader = ({
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       mutate(
         {
           url: data.aws_url,

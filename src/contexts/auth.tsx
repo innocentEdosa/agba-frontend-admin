@@ -20,6 +20,7 @@ export const AuthContext = createContext<{
 
 const AuthContextWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isAuth, setIsAuth] = useState(false);
+  
   useEffect(() => {
     const ls = new SecureLS();
     let tokenParams = ls.get(lsKeys.auth);

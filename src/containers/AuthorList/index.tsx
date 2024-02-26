@@ -49,7 +49,7 @@ const AuthorList = () => {
         </Button>
       </header>
       <section className={styles.authorListWrapper}>
-        <AuthorListTable authorList={authorList} />
+        <AuthorListTable authorList={authorList} isLoading={isLoading} />
         <div className="container">
           {!!authorList.length && (
             <Pagination
